@@ -2,6 +2,7 @@
   "name": "cyclog",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://myname.github.io/myapp",
   "dependencies": {
     "deck.gl": "^7.3.6",
     "react": "^16.12.0",

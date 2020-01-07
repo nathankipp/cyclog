@@ -53,7 +53,7 @@ const App = () => {
         }}
         onViewportChange={setViewport}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        mapStyle="mapbox://styles/mapbox/outdoors-v11"
+        mapStyle="mapbox://styles/mapbox/light-v10"
         height="100vh"
         width="100vw"
       >

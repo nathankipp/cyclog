@@ -14,11 +14,10 @@ export function fetchPath(coordinates) {
     },
   })
     .then(res => res.json())
-    .then(({ matchings }) => {
-      let path = [];
-      matchings.map(({ geometry: { coordinates } }) => {
-        path = path.concat(coordinates);
-      });
-      return path;
-    });
+    .then(({ matchings }) => matchings.reduce(
+      (a,c) => {
+        a.push(c.geometry.coordinates);
+        return a;
+      }, [])
+    );
 }

@@ -1,7 +1,11 @@
+import { fetchRides } from './fetchRides';
 import { fetchPath } from './fetchPath';
-import { getLayer } from './getLayer';
+import { makeLayer } from './makeLayer';
+import { addPathToRides } from './addPathToRides';
 
 export {
+  fetchRides,
   fetchPath,
-  getLayer,
+  makeLayer,
+  addPathToRides,
 };

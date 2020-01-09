@@ -12,7 +12,7 @@ import { PathLayer } from '@deck.gl/layers';
 //     );
 // }
 
-export function getLayer(data) {
+export function makeLayer(data) {
   // const path = data.path.length > 1
   //   ? getPath(data)
   //   : [{ path: data.path }];
@@ -20,7 +20,7 @@ export function getLayer(data) {
   return new PathLayer({
     id: data.name,
     data: [{ path: data.path }],
-    getColor: () => data.color || [0, 0, 0],
+    getColor: () => data.color,
     rounded: true,
     widthMinPixels: 2,
   });

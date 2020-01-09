@@ -10,3 +10,5 @@ export const VIEWPORT_USA = {
   transitionInterpolator: new FlyToInterpolator(),
   // transitionEasing: d3.easeCubic
 };
+
+export const NEW = "My New Ride";

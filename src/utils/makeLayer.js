@@ -1,4 +1,5 @@
-import { PathLayer } from '@deck.gl/layers';
+import { IconLayer, PathLayer } from '@deck.gl/layers';
+import rider from './rider.png';
 // import { fetchPath } from './fetchPath';
 
 // function getPath(data) {
@@ -12,11 +13,22 @@ import { PathLayer } from '@deck.gl/layers';
 //     );
 // }
 
-export function makeLayer(data) {
-  // const path = data.path.length > 1
-  //   ? getPath(data)
-  //   : [{ path: data.path }];
+export function makeIcon(data) {
+  return new IconLayer({
+    id: data.name,
+    data: [{ coordinates: data.path }],
+    iconAtlas: rider,
+    iconMapping: {
+      rider: {x: 0, y: 0, width: 32, height: 28, mask: true}
+    },
+    getIcon: () => 'rider',
+    getColor: () => data.color,
+    getPosition: d => d.coordinates,
+    sizeMinPixels: 28
+  });
+}
 
+export function makePath(data) {
   return new PathLayer({
     id: data.name,
     data: [{ path: data.path }],

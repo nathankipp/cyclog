@@ -8,7 +8,14 @@ export const VIEWPORT_USA = {
   zoom: 3.25,
   transitionDuration: 'auto',
   transitionInterpolator: new FlyToInterpolator(),
-  // transitionEasing: d3.easeCubic
+  // transitionEasing: d3.easeCubic,
 };
 
 export const NEW = "My New Ride";
+
+export const COLORS = {
+  black: [0, 0, 0],
+  red: [221, 0, 0],
+  green: [0, 221 ,0],
+  blue: [0, 0, 221]
+};

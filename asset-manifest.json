@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/cyclog/static/css/main.4dc7c6e6.chunk.css",
-    "main.js": "/cyclog/static/js/main.48010b10.chunk.js",
-    "main.js.map": "/cyclog/static/js/main.48010b10.chunk.js.map",
+    "main.css": "/cyclog/static/css/main.fd9eed8b.chunk.css",
+    "main.js": "/cyclog/static/js/main.52000b92.chunk.js",
+    "main.js.map": "/cyclog/static/js/main.52000b92.chunk.js.map",
     "runtime-main.js": "/cyclog/static/js/runtime-main.e0bab9a5.js",
     "runtime-main.js.map": "/cyclog/static/js/runtime-main.e0bab9a5.js.map",
     "static/css/2.d9a8a5a7.chunk.css": "/cyclog/static/css/2.d9a8a5a7.chunk.css",
-    "static/js/2.9a6b9fdf.chunk.js": "/cyclog/static/js/2.9a6b9fdf.chunk.js",
-    "static/js/2.9a6b9fdf.chunk.js.map": "/cyclog/static/js/2.9a6b9fdf.chunk.js.map",
+    "static/js/2.bba8a064.chunk.js": "/cyclog/static/js/2.bba8a064.chunk.js",
+    "static/js/2.bba8a064.chunk.js.map": "/cyclog/static/js/2.bba8a064.chunk.js.map",
     "index.html": "/cyclog/index.html",
-    "precache-manifest.a441d166467c8470098d0143fcadba40.js": "/cyclog/precache-manifest.a441d166467c8470098d0143fcadba40.js",
+    "precache-manifest.96ac08b9b5bf9be458ac4bbd6674c549.js": "/cyclog/precache-manifest.96ac08b9b5bf9be458ac4bbd6674c549.js",
     "service-worker.js": "/cyclog/service-worker.js",
     "static/css/2.d9a8a5a7.chunk.css.map": "/cyclog/static/css/2.d9a8a5a7.chunk.css.map",
-    "static/css/main.4dc7c6e6.chunk.css.map": "/cyclog/static/css/main.4dc7c6e6.chunk.css.map"
+    "static/css/main.fd9eed8b.chunk.css.map": "/cyclog/static/css/main.fd9eed8b.chunk.css.map",
+    "static/media/directions_bike_24px.svg": "/cyclog/static/media/directions_bike_24px.64beea8c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.e0bab9a5.js",
     "static/css/2.d9a8a5a7.chunk.css",
-    "static/js/2.9a6b9fdf.chunk.js",
-    "static/css/main.4dc7c6e6.chunk.css",
-    "static/js/main.48010b10.chunk.js"
+    "static/js/2.bba8a064.chunk.js",
+    "static/css/main.fd9eed8b.chunk.css",
+    "static/js/main.52000b92.chunk.js"
   ]
 }

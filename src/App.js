@@ -12,7 +12,6 @@ import {
   makePath,
   startAndEndIcons
 } from './utils';
-import RideList from './RideList';
 import Controls from './Controls';
 
 function getNewRide(path, viewport) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Layout from './Layout';
 import MapGL from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -23,44 +24,67 @@ function getNewRide(path, viewport) {
   }];
 }
 
+const colorizePaths = (rides, ride) => rides.map(r => ({
+  ...r,
+  color: r.id === ride.id
+    ? COLORS.blue
+    : COLORS.black,
+}));
+
+const moveMapTo = ({ longitude, latitude, zoom }) => ({
+  ...VIEWPORT_USA,
+  longitude,
+  latitude,
+  zoom,
+});
+
 const App = () => {
   const [rides, setRides] = useState([]);
   const [icons, setIcons] = useState([]);
   const [path, setPath] = useState([]);
+  const [open, setOpen] = useState(false);
   const [viewport, setViewport] = useState(VIEWPORT_USA);
 
   useEffect(() => {
     fetchRides().then(setRides);
   }, []);
 
-  function selectRide(ride = {}) {
-    const updatedRides = rides.map(r => ({
-      ...r,
-      color: r.name === ride.name ? COLORS.blue : COLORS.black,
-    }));
-    setRides(updatedRides);
-    setIcons(ride.name ? startAndEndIcons(ride) : []);
-    setViewport({ ...VIEWPORT_USA, ...ride.viewport });
+  function selectRide(ride) {
+    const newRides = colorizePaths(rides, ride);
+    const newIcons = ride.id ? startAndEndIcons(ride) : [];
+    const newViewport = moveMapTo(ride.viewport);
+    setRides(newRides);
+    setIcons(newIcons);
+    setViewport(newViewport);
   }
 
   useEffect(() => {
     if (!!path.length) {
-      selectRide(getNewRide(path, viewport));
+      const newRide = getNewRide(path, viewport);
       const end = path.length - 1;
-      setViewport({
+      const newViewport = {
         ...viewport,
         longitude: path[end][0],
         latitude: path[end][1],
-      });
+      };
+      selectRide(newRide);
+      setViewport(newViewport);
     }
   }, [path]);
 
   function saveRide(ride) {
-    putRide(ride)
-    .then(() => {
-      setRides([ ...rides, { ...ride, color: COLORS.black } ]);
-      setPath([]);
-    });
+    return putRide(ride)
+      .then(() => {
+        const newRides = [
+          ...rides,
+          {
+            ...ride,
+            color: COLORS.black
+          }
+        ];
+        setRides(newRides);
+        setPath([]);
+      });
   }
 
   let newRide = [];
@@ -78,42 +102,41 @@ const App = () => {
   ];
 
   return (
-    <>
-      <RideList
-        rides={rides}
-        selectRide={selectRide}
-      />
-      { !!path.length && (
-          <Controls
-            viewport={viewport}
-            path={path}
-            setPath={setPath}
-            saveRide={saveRide}
-          />
-        )
-      }
+    <Layout rides={rides} selectRide={selectRide}>
       <MapGL
         {...viewport}
         onClick={e => {
           setPath([ ...path, e.lngLat]);
           setViewport({
-            ...viewport,
-            longitude: e.lngLat[0],
-            latitude: e.lngLat[1],
-          });
-        }}
-        onViewportChange={setViewport}
-        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        mapStyle="mapbox://styles/mapbox/outdoors-v11"
-        height="100vh"
-        width="75vw"
-      >
-        <DeckGL
-          viewState={viewport}
-          layers={layers}
-        />
+              ...viewport,
+              longitude: e.lngLat[0],
+              latitude: e.lngLat[1],
+            });
+          }}
+          onViewportChange={setViewport}
+          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          mapStyle="mapbox://styles/mapbox/outdoors-v11"
+          height="100%"
+          width="100%"
+        >
+          <DeckGL
+            viewState={viewport}
+            layers={layers}
+          />
       </MapGL>
-    </>
+      {!!path.length && (
+          <Controls
+            open={open}
+            setOpen={setOpen}
+            viewport={viewport}
+            path={path}
+            setPath={setPath}
+            newRide={newRide[0]}
+            saveRide={saveRide}
+          />
+        )
+      }
+    </Layout>
   );
 };
 

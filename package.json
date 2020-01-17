@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "http://nathankipp.github.io/cyclog",
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
     "aws-sdk": "^2.598.0",
     "deck.gl": "^7.3.6",
     "node-sass": "^4.13.0",

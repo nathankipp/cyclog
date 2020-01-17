@@ -2,8 +2,10 @@ import { FlyToInterpolator } from 'react-map-gl';
 
 export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoibmF0aGFua2lwcCIsImEiOiJjazNid2k3enIwN2QzM2Nucmp5b3NmaXY0In0.cMIErB8-bLVio-MGSeXlfg';
 
+export const DRAWER_WIDTH = 240;
+
 export const VIEWPORT_USA = {
-  latitude: 36.0,
+  latitude: 39.0,
   longitude: -97.0,
   zoom: 3.25,
   transitionDuration: 'auto',
@@ -15,7 +17,7 @@ export const NEW = "My New Ride";
 
 export const COLORS = {
   black: [0, 0, 0],
-  red: [221, 0, 0],
-  green: [0, 221 ,0],
-  blue: [0, 0, 221]
+  red: [150, 50, 50],
+  green: [50, 150 ,50],
+  blue: [50, 50, 150]
 };

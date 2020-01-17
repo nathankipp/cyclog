@@ -29,7 +29,7 @@ export function putRide(ride) {
       if (err) {
         reject('ride was not saved');
       } else {
-        resolve();
+        setTimeout(resolve, 5000);
       }
     });
   });

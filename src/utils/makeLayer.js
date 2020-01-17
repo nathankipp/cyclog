@@ -1,5 +1,6 @@
 import { IconLayer, PathLayer } from '@deck.gl/layers';
-import rider from './rider.png';
+// import rider from './rider.png';
+import rider from './directions_bike_24px.svg';
 // import { fetchPath } from './fetchPath';
 
 // function getPath(data) {
@@ -19,7 +20,7 @@ export function makeIcon(data) {
     data: [{ coordinates: data.path }],
     iconAtlas: rider,
     iconMapping: {
-      rider: {x: 0, y: 0, width: 32, height: 28, mask: true}
+      rider: {x: 0, y: 0, width: 24, height: 24, mask: true}
     },
     getIcon: () => 'rider',
     getColor: () => data.color,

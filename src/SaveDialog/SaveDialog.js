@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SaveDialog({ open, handleClose, handleClickSave }) {
-  const [name, setName] = useState('test');
+  const [name, setName] = useState('');
   const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();

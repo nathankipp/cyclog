@@ -16,7 +16,6 @@ import Controls from './Controls';
 
 function getNewRide(path, viewport) {
   return [{
-    name: NEW,
     color: COLORS.blue,
     path,
     viewport
@@ -66,7 +65,7 @@ const App = () => {
         longitude: path[end][0],
         latitude: path[end][1],
       };
-      selectRide(newRide);
+      selectRide(newRide[0]);
       setViewport(newViewport);
     }
   }, [path]);

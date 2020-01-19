@@ -151,17 +151,21 @@ export default function Layout({ rides, selectRide, children }) {
             </>
           )
           }
-          {rides.map((ride) => (
-            <ListItem
-              button
-              key={ride.name}
-              onClick={() => handleSelection(ride)}
-              selected={ride.id === selectedRide}
-            >
-              <ListItemIcon><DirectionsBike /></ListItemIcon>
-              <ListItemText primary={ride.name} />
-            </ListItem>
-          ))}
+          {rides.map((ride) => {
+            const isSelected = ride.id === selectedRide;
+            const bikeColor = isSelected ? 'primary' : 'disabled';
+            return (
+              <ListItem
+                button
+                key={ride.name}
+                onClick={() => handleSelection(ride)}
+                selected={isSelected}
+              >
+                <ListItemIcon><DirectionsBike color={bikeColor} /></ListItemIcon>
+                <ListItemText primary={ride.name} />
+              </ListItem>
+            );
+          })}
         </List>
       </Drawer>
       <main

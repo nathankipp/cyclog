@@ -13,8 +13,6 @@ export const VIEWPORT_USA = {
   // transitionEasing: d3.easeCubic,
 };
 
-export const NEW = "My New Ride";
-
 export const COLORS = {
   black: [0, 0, 0],
   red: [150, 50, 50],

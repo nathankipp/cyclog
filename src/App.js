@@ -4,7 +4,7 @@ import MapGL from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.scss';
-import { MAPBOX_ACCESS_TOKEN, VIEWPORT_USA, COLORS, NEW } from './config';
+import { MAPBOX_ACCESS_TOKEN, VIEWPORT_USA, COLORS } from './config';
 import {
   fetchRides,
   putRide,

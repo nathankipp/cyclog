@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Controls({open, setOpen, viewport, path, setPath, newRide, saveRide}) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const handleClickSaveIcon = () => {
     setOpen(true);

@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Undo from '@material-ui/icons/Undo';
 import Save from '@material-ui/icons/Save';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import SaveDialog from '../SaveDialog';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -28,26 +26,21 @@ const useStyles = makeStyles(theme => ({
   delete: { color: '#963232' },
 }));
 
-export default function Controls({open, setOpen, viewport, path, setPath, newRide, saveRide}) {
+export default function Controls({ openSaveDialog, path, setPath }) {
   const classes = useStyles();
 
-  const handleClickSaveIcon = () => {
-    setOpen(true);
-  };
+  const handleUndoClick = () => {
+    setPath(path.slice(0, -1));
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleSaveClick = () => {
+    openSaveDialog();
+  }
 
-  const handleClickSave = ({ id, name }) => {
-    const ride = {
-      ...newRide,
-      id: id || uuid(),
-      name
+  const handleDeleteClick = () => {
+    if (window.confirm('are you sure?')) {
+      setPath([]);
     };
-    saveRide(ride).then(() => {
-      setOpen(false);
-    });
   }
 
   return (
@@ -57,83 +50,26 @@ export default function Controls({open, setOpen, viewport, path, setPath, newRid
           <IconButton
             aria-label="undo"
             className={classes.undo}
-            onClick={() => setPath(path.slice(0, -1))}
+            onClick={handleUndoClick}
           >
             <Undo />
           </IconButton>
           <IconButton
             aria-label="save"
             className={classes.save}
-            onClick={handleClickSaveIcon}
+            onClick={handleSaveClick}
           >
             <Save />
           </IconButton>
           <IconButton
             aria-label="trash"
             className={classes.delete}
-            onClick={() => {
-              if (window.confirm('are you sure?')) {
-                setPath([]);
-              }}
-          }>
+            onClick={handleDeleteClick}
+          >
             <DeleteForever />
           </IconButton>
         </CardContent>
       </Card>
-      <SaveDialog
-        open={open}
-        handleClickSave={handleClickSave}
-        handleClose={handleClose}
-      />
     </>
   );
 }
-
-/*
-import uuid from 'uuid';
-import React, { useState } from 'react';
-import { NEW } from '../config';
-
-// const dot = ` ${String.fromCharCode(183)} `;
-
-const Controls = ({ viewport, path, setPath, saveRide }) => {
-  const [name, setName] = useState(NEW);
-
-  function save() {
-    const data = {
-      id: uuid(),
-      rider: 'Nathan',
-      order: 1,
-      name,
-      path,
-      viewport: {
-        latitude: viewport.latitude,
-        longitude: viewport.longitude,
-        zoom: viewport.zoom,
-      },
-    };
-    return saveRide(data);
-  }
-
-  return (
-    <div className="Controls">
-      <div><b>Recording...</b></div>
-      <div>
-        <a onClick={() => setPath(path.slice(0, -1))}>undo last</a>
-        <a onClick={() => {
-          if (window.confirm('are you sure?')) {
-            setPath([]);
-          }}}>
-          start over
-        </a>
-      </div>
-      <div>
-        <input value={name} onChange={e => setName(e.target.value)} />
-        <button onClick={save}>save</button>
-      </div>
-    </div>
-  );
-}
-
-export default Controls;
-*/

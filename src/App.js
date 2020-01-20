@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Layout from './Layout';
-import Map from './Map';
+import uuid from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.scss';
 import { VIEWPORT_USA, COLORS } from './config';
@@ -14,7 +13,10 @@ import {
   startAndEndIcons,
   getNewRide,
 } from './utils';
+import Layout from './Layout';
+import Map from './Map';
 import Controls from './Controls';
+import SaveDialog from './SaveDialog';
 
 const App = () => {
   const [rides, setRides] = useState([]);
@@ -36,6 +38,18 @@ const App = () => {
     setViewport(newViewport);
   }, [rides]);
 
+  const handleClickSave = ({ id, name }) => {
+    const ride = {
+      ...newRide.ride[0],
+      id: id || uuid(),
+      name
+    };
+
+    saveRide(ride).then(() => {
+      setOpen(false);
+    });
+  }
+
   const saveRide = ride => putRide(ride)
     .then(() => {
       const newRides = [
@@ -49,6 +63,14 @@ const App = () => {
       setPath([]);
     });
 
+  const openSaveDialog = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const newRide = getNewRide(path, viewport);
   const layers = [
     ...rides.map(makePath),
@@ -58,7 +80,7 @@ const App = () => {
   ];
 
   return (
-    <Layout rides={rides} selectRide={selectRide}>
+    <Layout rides={rides} selectRide={selectRide} saveRide={saveRide}>
       <Map
         viewport={viewport}
         setViewport={setViewport}
@@ -67,17 +89,17 @@ const App = () => {
         layers={layers}
       />
       {!!path.length && (
-          <Controls
-            open={open}
-            setOpen={setOpen}
-            viewport={viewport}
-            path={path}
-            setPath={setPath}
-            newRide={newRide.ride[0]}
-            saveRide={saveRide}
-          />
-        )
-      }
+        <Controls
+          openSaveDialog={openSaveDialog}
+          path={path}
+          setPath={setPath}
+        />
+      )}
+      <SaveDialog
+        open={open}
+        handleClickSave={handleClickSave}
+        handleClose={handleClose}
+      />
     </Layout>
   );
 };

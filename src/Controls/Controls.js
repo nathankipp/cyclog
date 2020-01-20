@@ -39,10 +39,10 @@ export default function Controls({open, setOpen, viewport, path, setPath, newRid
     setOpen(false);
   };
 
-  const handleClickSave = name => {
+  const handleClickSave = ({ id, name }) => {
     const ride = {
       ...newRide,
-      id: newRide.id || uuid(),
+      id: id || uuid(),
       name
     };
     saveRide(ride).then(() => {

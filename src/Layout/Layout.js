@@ -13,6 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DirectionsBike from '@material-ui/icons/DirectionsBike';
+import EditIcon from '@material-ui/icons/Edit';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Header from '../Header';
@@ -68,6 +69,20 @@ const useStyles = makeStyles(theme => ({
   },
   loadingRides: {
     padding: theme.spacing(0, 2),
+  },
+  bikeIcon: {
+    minWidth: 40,
+  },
+  rideName: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    paddingRight: 40,
+  },
+  editIcon: {
+    position: 'absolute',
+    right: 8,
+    padding: 8,
   },
   content: {
     position: 'relative',
@@ -160,9 +175,21 @@ export default function Layout({ rides, selectRide, children }) {
                 key={ride.name}
                 onClick={() => handleSelection(ride)}
                 selected={isSelected}
+                disableTouchRipple={isSelected}
               >
-                <ListItemIcon><DirectionsBike color={bikeColor} /></ListItemIcon>
-                <ListItemText primary={ride.name} />
+                <ListItemIcon className={classes.bikeIcon}>
+                  <DirectionsBike color={bikeColor} />
+                </ListItemIcon>
+                <ListItemText className={classes.rideName} primary={ride.name} />
+                {isSelected &&
+                  <IconButton
+                    size="small"
+                    className={classes.editIcon}
+                    onClick={() => {}}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                }
               </ListItem>
             );
           })}

@@ -36,20 +36,18 @@ const App = () => {
     setViewport(newViewport);
   }, [rides]);
 
-  function saveRide(ride) {
-    return putRide(ride)
-      .then(() => {
-        const newRides = [
-          ...rides,
-          {
-            ...ride,
-            color: COLORS.black
-          }
-        ];
-        setRides(newRides);
-        setPath([]);
-      });
-  }
+  const saveRide = ride => putRide(ride)
+    .then(() => {
+      const newRides = [
+        ...rides,
+        {
+          ...ride,
+          color: COLORS.black
+        }
+      ];
+      setRides(newRides);
+      setPath([]);
+    });
 
   const newRide = getNewRide(path, viewport);
   const layers = [

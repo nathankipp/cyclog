@@ -23,8 +23,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SaveDialog({ open, handleClose, handleClickSave }) {
-  const [name, setName] = useState('');
+export default function SaveDialog({ ride = {}, open, handleClose, handleClickSave }) {
+  const [name, setName] = useState(ride.name || '');
   const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();
@@ -64,7 +64,10 @@ export default function SaveDialog({ open, handleClose, handleClickSave }) {
             color="primary"
             onClick={() => {
               setDisabled(true);
-              handleClickSave(name);
+              handleClickSave({
+                id: ride.id,
+                name
+              });
             }}
             disabled={disabled}
           >

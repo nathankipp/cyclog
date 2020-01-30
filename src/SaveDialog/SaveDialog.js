@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -23,20 +23,44 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SaveDialog({ ride = {}, open, handleClose, handleClickSave }) {
+export default function SaveDialog({ open, toggle, ride, saveRide }) {
   const [name, setName] = useState(ride.name || '');
   const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();
 
+  useEffect(() => {
+    setName(ride.name);
+  }, [ride]);
+
+  const onSaveClick = () => {
+    setDisabled(true);
+    saveRide({
+      ...ride,
+      name
+    }).then(() => {
+      setDisabled(false);
+    });
+  }
+
+  const onClose = () => {
+    toggle(false);
+  }
+
+  const labels = {
+    name: ride.id
+      ? 'Rename your ride'
+      : 'Give your ride a name'
+  };
+
   return (
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+    <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title" style={{minWidth: 300}}>
         Ride Details
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Give your ride a name
+          {labels.name}
         </DialogContentText>
         <TextField
           autoFocus
@@ -53,7 +77,7 @@ export default function SaveDialog({ ride = {}, open, handleClose, handleClickSa
         <Button
           variant="contained"
           color="primary"
-          onClick={handleClose}
+          onClick={onClose}
           disabled={disabled}
         >
           Cancel
@@ -62,13 +86,7 @@ export default function SaveDialog({ ride = {}, open, handleClose, handleClickSa
           <Button
             variant="contained"
             color="primary"
-            onClick={() => {
-              setDisabled(true);
-              handleClickSave({
-                id: ride.id,
-                name
-              });
-            }}
+            onClick={onSaveClick}
             disabled={disabled}
           >
             Save

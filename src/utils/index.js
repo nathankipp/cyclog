@@ -1,6 +1,6 @@
 import { fetchRides, putRide } from './db';
 import { fetchPath } from './fetchPath';
-import { makeIcon, makePath } from './makeLayer';
+import { makeRideLayer } from './makeRideLayer';
 import { startAndEndIcons } from './startAndEndIcons';
 import { colorizePaths } from './colorizePaths';
 import { moveMapTo } from './moveMapTo';
@@ -10,8 +10,7 @@ export {
   fetchRides,
   putRide,
   fetchPath,
-  makeIcon,
-  makePath,
+  makeRideLayer,
   startAndEndIcons,
   colorizePaths,
   moveMapTo,

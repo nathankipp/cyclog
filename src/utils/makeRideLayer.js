@@ -1,4 +1,5 @@
 import { IconLayer, PathLayer } from '@deck.gl/layers';
+import { COLORS } from '../config';
 // import rider from './rider.png';
 import rider from './directions_bike_24px.svg';
 // import { fetchPath } from './fetchPath';
@@ -14,7 +15,7 @@ import rider from './directions_bike_24px.svg';
 //     );
 // }
 
-export function makeIcon(data) {
+function makeIconLayer(data) {
   return new IconLayer({
     id: data.name,
     data: [{ coordinates: data.path }],
@@ -29,7 +30,7 @@ export function makeIcon(data) {
   });
 }
 
-export function makePath(data) {
+function makePathLayer(data) {
   return new PathLayer({
     id: data.name,
     data: [{ path: data.path }],
@@ -37,4 +38,28 @@ export function makePath(data) {
     rounded: true,
     widthMinPixels: 2,
   });
+}
+
+export function makeRideLayer(ride) {
+  const layers = [makePathLayer(ride)];
+  if (ride.isSelected) {
+    const startIconData = {
+      ...ride,
+      name: `${ride.name}-start`,
+      color: COLORS.green,
+      path: ride.path[0]
+    };
+    layers.push(makeIconLayer(startIconData));
+
+    if (ride.path.length > 1) {
+      const endIconData = {
+        ...ride,
+        name: `${ride.name}-end`,
+        color: COLORS.red,
+        path: ride.path[ride.path.length - 1]
+      };
+      layers.push(makeIconLayer(endIconData));
+    }
+  }
+  return layers;
 }

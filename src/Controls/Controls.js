@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   delete: { color: '#963232' },
 }));
 
-export default function Controls({ openSaveDialog, path, setPath }) {
+export default function Controls({ path, setPath, toggleModal }) {
   const classes = useStyles();
 
   const handleUndoClick = () => {
@@ -34,7 +34,7 @@ export default function Controls({ openSaveDialog, path, setPath }) {
   }
 
   const handleSaveClick = () => {
-    openSaveDialog();
+    toggleModal(true);
   }
 
   const handleDeleteClick = () => {

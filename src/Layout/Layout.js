@@ -14,6 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DirectionsBike from '@material-ui/icons/DirectionsBike';
 import EditIcon from '@material-ui/icons/Edit';
+import FiberNew from '@material-ui/icons/FiberNew';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Header from '../Header';
@@ -111,11 +112,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Layout({ rides, selectRide, children }) {
+export default function Layout({ rides, selectRide, selectedRideId, toggleModal, children }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-  const [selectedRide, setSelectedRide] = React.useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -127,7 +127,6 @@ export default function Layout({ rides, selectRide, children }) {
 
   const handleSelection = (ride) => {
     selectRide(ride);
-    setSelectedRide(ride.id);
   }
 
   return (
@@ -166,32 +165,48 @@ export default function Layout({ rides, selectRide, children }) {
             </>
           )
           }
-          {rides.map((ride) => {
-            const isSelected = ride.id === selectedRide;
-            const bikeColor = isSelected ? 'primary' : 'disabled';
-            return (
-              <ListItem
-                button
-                key={ride.name}
-                onClick={() => handleSelection(ride)}
-                selected={isSelected}
-                disableTouchRipple={isSelected}
-              >
-                <ListItemIcon className={classes.bikeIcon}>
-                  <DirectionsBike color={bikeColor} />
-                </ListItemIcon>
-                <ListItemText className={classes.rideName} primary={ride.name} />
-                {isSelected &&
-                  <IconButton
-                    size="small"
-                    className={classes.editIcon}
-                    onClick={() => {}}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                }
-              </ListItem>
-            );
+          {rides
+            .sort((a,b) => a.name.localeCompare(b.name))
+            .map((ride) => {
+              const isSelected = ride.id === selectedRideId;
+              const bikeColor = isSelected ? 'primary' : 'disabled';
+              const isNew = ride.id === '__new__';
+              const canEdit = isSelected && !isNew;
+              return (
+                <ListItem
+                  button
+                  key={ride.name.concat(ride.id)}
+                  onClick={() => handleSelection(ride)}
+                  selected={isSelected}
+                  disableTouchRipple={isSelected}
+                >
+                  <ListItemIcon className={classes.bikeIcon}>
+                    <DirectionsBike color={bikeColor} />
+                  </ListItemIcon>
+                  <ListItemText className={classes.rideName} primary={ride.name} />
+                  {isNew &&
+                    <IconButton
+                      size="small"
+                      className={classes.editIcon}
+                      disabled
+                    >
+                      <FiberNew fontSize="small" />
+                    </IconButton>
+                  }
+                  {canEdit &&
+                    <IconButton
+                      size="small"
+                      className={classes.editIcon}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleModal(true);
+                      }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  }
+                </ListItem>
+              );
           })}
         </List>
       </Drawer>

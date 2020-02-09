@@ -14,6 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DirectionsBike from '@material-ui/icons/DirectionsBike';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import FiberNew from '@material-ui/icons/FiberNew';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -80,9 +81,12 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     paddingRight: 40,
   },
-  editIcon: {
+  actionIcons: {
     position: 'absolute',
     right: 8,
+  },
+  actionIconButton: {
+    marginLeft: 8,
     padding: 8,
   },
   content: {
@@ -112,22 +116,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Layout({ rides, selectRide, selectedRideId, toggleModal, children }) {
+export default function Layout({ rides, selectRide, selectedRideId, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const handleDrawerOpen = () => setOpen(true);
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const handleDrawerClose = () => setOpen(false);
 
-  const handleSelection = (ride) => {
-    selectRide(ride);
-  }
+  const handleSelection = (ride) => selectRide(ride);
 
   return (
     <div className={classes.root}>
@@ -187,23 +185,35 @@ export default function Layout({ rides, selectRide, selectedRideId, toggleModal,
                   {isNew &&
                     <IconButton
                       size="small"
-                      className={classes.editIcon}
+                      className={classes.actionIcons}
                       disabled
                     >
                       <FiberNew fontSize="small" />
                     </IconButton>
                   }
                   {canEdit &&
-                    <IconButton
-                      size="small"
-                      className={classes.editIcon}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleModal(true);
-                      }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
+                    <div className={classes.actionIcons}>
+                      <IconButton
+                        className={classes.actionIconButton}
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleSaveDialog(true);
+                        }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        className={classes.actionIconButton}
+                        size="small"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDeleteConfirm(true);
+                        }}
+                      >
+                        <DeleteForever fontSize="small" />
+                      </IconButton>
+                    </div>
                   }
                 </ListItem>
               );

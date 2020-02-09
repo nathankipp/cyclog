@@ -26,22 +26,14 @@ const useStyles = makeStyles(theme => ({
   delete: { color: '#963232' },
 }));
 
-export default function Controls({ path, setPath, toggleModal }) {
+export default function Controls({ undoPath, toggleSaveDialog, toggleDeleteConfirm }) {
   const classes = useStyles();
 
-  const handleUndoClick = () => {
-    setPath(path.slice(0, -1));
-  }
+  const handleUndoClick = () => undoPath();
 
-  const handleSaveClick = () => {
-    toggleModal(true);
-  }
+  const handleSaveClick = () => toggleSaveDialog(true);
 
-  const handleDeleteClick = () => {
-    if (window.confirm('are you sure?')) {
-      setPath([]);
-    };
-  }
+  const handleDeleteClick = () => toggleDeleteConfirm(true);
 
   return (
     <>

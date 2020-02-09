@@ -32,7 +32,7 @@ function makeIconLayer(data) {
 
 function makePathLayer(data) {
   return new PathLayer({
-    id: data.name,
+    id: data.id,
     data: [{ path: data.path }],
     getColor: () => data.color,
     rounded: true,

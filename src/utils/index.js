@@ -1,4 +1,4 @@
-import { fetchRides, putRide } from './db';
+import { fetchRides, putRide, deleteRide } from './db';
 import { fetchPath } from './fetchPath';
 import { makeRideLayer } from './makeRideLayer';
 import { startAndEndIcons } from './startAndEndIcons';
@@ -9,6 +9,7 @@ import { getNewRide } from './getNewRide';
 export {
   fetchRides,
   putRide,
+  deleteRide,
   fetchPath,
   makeRideLayer,
   startAndEndIcons,

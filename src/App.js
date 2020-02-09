@@ -7,6 +7,7 @@ import {
   moveMapTo,
   fetchRides,
   putRide,
+  deleteRide,
   makeRideLayer,
   startAndEndIcons,
   getNewRide,
@@ -15,6 +16,7 @@ import Layout from './Layout';
 import Map from './Map';
 import Controls from './Controls';
 import SaveDialog from './SaveDialog';
+import DeleteConfirm from './DeleteConfirm';
 
 function configureRides(rides, selectedRide = {}) {
   return rides.map(ride => {
@@ -36,34 +38,43 @@ export default class App extends React.Component {
     selectedRide: null,
     path: [],
     viewport: VIEWPORT_USA,
-    modalOpen: false,
+    isSaveDialogOpen: false,
+    isDeleteConfirmOpen: false,
+    deleteFn: null
   };
 
   componentDidMount = () => {
     fetchRides()
       .then(configureRides)
-      .then(rides => {
-        this.setState({
-          ...this.state,
-          rides,
-        });
-      });
+      .then(rides => this.setState({ rides }));
   }
 
-  selectRide = (ride) => {
+  deleteRideFn = (selectedRide) => () => {
     const { rides } = this.state;
-    const newRides = configureRides(rides, ride);
-    const newViewport = moveMapTo(ride.viewport);
+    return deleteRide(selectedRide)
+      .then(() => new Promise(resolve =>
+        this.setState({
+          rides: rides.filter(r => r.id !== selectedRide.id)
+        }, resolve))
+      );
+  }
+
+  selectRide = (selectedRide) => {
+    const { rides } = this.state;
+    const newRides = configureRides(rides, selectedRide);
+    const viewport = moveMapTo(selectedRide.viewport);
+    const deleteFn = this.deleteRideFn(selectedRide);
     this.setState({
-      ...this.state,
+      selectedRide,
       rides: newRides,
-      selectedRide: ride,
-      viewport: newViewport,
+      deleteFn,
+      viewport,
     });
   }
 
   setPath = (path) => {
-    const newState = { ...this.state, path };
+    const deleteFn = () => this.setPath([]);
+    const newState = { path, deleteFn };
     const { rides, viewport } = this.state;
     if (!!path.length) {
       const newRide = getNewRide(path, viewport);
@@ -77,10 +88,13 @@ export default class App extends React.Component {
       newState.rides = rides.filter(existingRides);
       newState.selectedRide = null;
     }
-    this.setState(newState);
+    return new Promise(resolve => this.setState(newState, resolve));
   }
 
-  toggleModal = (modalOpen) => this.setState({ ...this.state, modalOpen });
+  undoPath = () => {
+    const { path } = this.state;
+    this.setPath(path.slice(0, -1));
+  }
 
   saveRide = (ride) => {
     const { path, viewport } = this.state;
@@ -102,50 +116,60 @@ export default class App extends React.Component {
       })
       .then((rides) => {
         this.setState({
-          ...this.state,
-          path: isNew ? [] : path,
           rides,
           selectedRide: payload,
-          modalOpen: false,
+          deleteFn: this.deleteRideFn(payload),
+          path: isNew ? [] : path,
+          isSaveDialogOpen: false,
         });
       });
   }
 
-  setViewport = (viewport) => this.setState({ ...this.state, viewport });
+  toggleSaveDialog = (isSaveDialogOpen) => this.setState({ isSaveDialogOpen });
+  toggleDeleteConfirm = (isDeleteConfirmOpen) => this.setState({ isDeleteConfirmOpen });
+  setViewport = (viewport) => this.setState({ viewport });
 
   render() {
-    const { rides, selectedRide, path, viewport, modalOpen } = this.state;
+    const { rides, selectedRide, path, viewport, isSaveDialogOpen, isDeleteConfirmOpen, deleteFn } = this.state;
     const layers = [...rides.map(makeRideLayer)];
     const showControls = !!path.length && selectedRide && selectedRide.id === '__new__';
 
     return (
-      <Layout
-        rides={rides}
-        selectRide={this.selectRide}
-        selectedRideId={selectedRide && selectedRide.id}
-        toggleModal={this.toggleModal}
-      >
-        <Map
-          viewport={viewport}
-          setViewport={this.setViewport}
-          path={path}
-          setPath={this.setPath}
-          layers={layers}
-        />
-        {showControls && (
-          <Controls
+      <>
+        <Layout
+          rides={rides}
+          selectRide={this.selectRide}
+          selectedRideId={selectedRide && selectedRide.id}
+          toggleSaveDialog={this.toggleSaveDialog}
+          toggleDeleteConfirm={this.toggleDeleteConfirm}
+        >
+          <Map
+            viewport={viewport}
+            setViewport={this.setViewport}
             path={path}
             setPath={this.setPath}
-            toggleModal={this.toggleModal}
+            layers={layers}
           />
-        )}
+          {showControls && (
+            <Controls
+              undoPath={this.undoPath}
+              toggleSaveDialog={this.toggleSaveDialog}
+              toggleDeleteConfirm={this.toggleDeleteConfirm}
+            />
+          )}
+        </Layout>
         <SaveDialog
-          open={modalOpen}
-          toggle={this.toggleModal}
+          open={isSaveDialogOpen}
+          toggle={this.toggleSaveDialog}
           ride={selectedRide || {}}
           saveRide={this.saveRide}
         />
-      </Layout>
+        <DeleteConfirm
+          open={isDeleteConfirmOpen}
+          toggleDeleteConfirm={this.toggleDeleteConfirm}
+          deleteFn={deleteFn}
+        />
+      </>
     );
   }
 }

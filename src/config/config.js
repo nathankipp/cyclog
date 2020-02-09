@@ -2,7 +2,7 @@ import { FlyToInterpolator } from 'react-map-gl';
 
 export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoibmF0aGFua2lwcCIsImEiOiJjazNid2k3enIwN2QzM2Nucmp5b3NmaXY0In0.cMIErB8-bLVio-MGSeXlfg';
 
-export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 300;
 
 export const VIEWPORT_USA = {
   latitude: 39.0,

@@ -7,10 +7,11 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 });
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
+const TableName = 'cyclog';
 
 export function fetchRides() {
   return new Promise((resolve, reject) => {
-    dynamo.scan({ TableName: 'cyclog' }, (err, data) => {
+    dynamo.scan({ TableName }, (err, data) => {
       if (err) {
         reject('ride list cannot be retrieved');
       } else {
@@ -25,9 +26,21 @@ export function fetchRides() {
 
 export function putRide(ride) {
   return new Promise((resolve, reject) => {
-    dynamo.put({ Item: ride, TableName: 'cyclog' }, (err, data) => {
+    dynamo.put({ Item: ride, TableName }, (err, data) => {
       if (err) {
         reject('ride was not saved');
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+export function deleteRide(ride) {
+  return new Promise((resolve, reject) => {
+    dynamo.delete({ TableName, Key: { id: ride.id } }, (err, data) => {
+      if (err) {
+        reject(err);
       } else {
         resolve();
       }

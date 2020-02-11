@@ -1,13 +1,15 @@
 import {
-  DRAWER_WIDTH,
-  COLORS,
   MAPBOX_ACCESS_TOKEN,
+  DRAWER_WIDTH,
+  NEW_ID,
   VIEWPORT_USA,
+  COLORS,
 } from './config';
 
 export {
-  DRAWER_WIDTH,
-  COLORS,
   MAPBOX_ACCESS_TOKEN,
+  DRAWER_WIDTH,
+  NEW_ID,
   VIEWPORT_USA,
+  COLORS,
 };

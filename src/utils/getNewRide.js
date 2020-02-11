@@ -1,10 +1,10 @@
-import { COLORS } from '../config';
+import { COLORS, NEW_ID } from '../config';
 
 export function getNewRide(path, viewport) {
   let ride = [];
   if (!!path.length) {
     ride = [{
-      id: '__new__',
+      id: NEW_ID,
       name: '• New ride •',
       color: COLORS.blue,
       path,

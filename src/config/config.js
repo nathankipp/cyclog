@@ -4,6 +4,8 @@ export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoibmF0aGFua2lwcCIsImEiOiJjazNid2k3e
 
 export const DRAWER_WIDTH = 300;
 
+export const NEW_ID = 'NEW_ID';
+
 export const VIEWPORT_USA = {
   latitude: 39.0,
   longitude: -97.0,

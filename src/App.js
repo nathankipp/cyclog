@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.scss';
-import { VIEWPORT_USA, COLORS } from './config';
+import { VIEWPORT_USA, COLORS, NEW_ID } from './config';
 import {
   moveMapTo,
   fetchRides,
@@ -13,6 +13,7 @@ import {
   getNewRide,
 } from './utils';
 import Layout from './Layout';
+import RideList from './RideList';
 import Map from './Map';
 import Controls from './Controls';
 import SaveDialog from './SaveDialog';
@@ -30,12 +31,12 @@ function configureRides(rides, selectedRide = {}) {
   });
 }
 
-const existingRides = ride => ride.id !== '__new__';
+const existingRides = ride => ride.id !== NEW_ID;
 
 export default class App extends React.Component {
   state = {
     rides: [],
-    selectedRide: null,
+    selectedRide: {},
     path: [],
     viewport: VIEWPORT_USA,
     isSaveDialogOpen: false,
@@ -98,7 +99,7 @@ export default class App extends React.Component {
 
   saveRide = (ride) => {
     const { path, viewport } = this.state;
-    const isNew = ride.id === '__new__';
+    const isNew = ride.id === NEW_ID;
     const id = isNew ? uuid() : ride.id;
     const payload = {
       ...ride,
@@ -132,16 +133,19 @@ export default class App extends React.Component {
   render() {
     const { rides, selectedRide, path, viewport, isSaveDialogOpen, isDeleteConfirmOpen, deleteFn } = this.state;
     const layers = [...rides.map(makeRideLayer)];
-    const showControls = !!path.length && selectedRide && selectedRide.id === '__new__';
+    const showControls = !!path.length && selectedRide && selectedRide.id === NEW_ID;
 
     return (
       <>
         <Layout
-          rides={rides}
-          selectRide={this.selectRide}
-          selectedRideId={selectedRide && selectedRide.id}
-          toggleSaveDialog={this.toggleSaveDialog}
-          toggleDeleteConfirm={this.toggleDeleteConfirm}
+          rideList={() =>
+            <RideList
+              rides={rides}
+              selectRide={this.selectRide}
+              toggleSaveDialog={this.toggleSaveDialog}
+              toggleDeleteConfirm={this.toggleDeleteConfirm}
+            />
+          }
         >
           <Map
             viewport={viewport}
@@ -161,12 +165,12 @@ export default class App extends React.Component {
         <SaveDialog
           open={isSaveDialogOpen}
           toggle={this.toggleSaveDialog}
-          ride={selectedRide || {}}
+          ride={selectedRide}
           saveRide={this.saveRide}
         />
         <DeleteConfirm
           open={isDeleteConfirmOpen}
-          toggleDeleteConfirm={this.toggleDeleteConfirm}
+          toggle={this.toggleDeleteConfirm}
           deleteFn={deleteFn}
         />
       </>

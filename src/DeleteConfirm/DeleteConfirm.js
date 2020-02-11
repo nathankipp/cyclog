@@ -6,16 +6,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function AlertDialog({ open, deleteFn, toggleDeleteConfirm }) {
+export default function AlertDialog({ open, toggle, deleteFn }) {
 
   const handleClose = () => {
-    toggleDeleteConfirm(false);
+    toggle(false);
   };
 
   const handleDelete = () => {
     deleteFn().then(handleClose);
   };
-  
+
   return (
     <Dialog
       open={open}

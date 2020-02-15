@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  hide: {
+    display: 'none',
+  },
   avatars: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -37,19 +40,18 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  hide: {
-    display: 'none',
-  },
 }));
 
-export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
+function Header({ isDrawerOpen, toggleDrawer }) {
   const classes = useStyles();
+
+  const handleDrawerOpen = () => toggleDrawer(true);
 
   return (
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: isDrawerOpen,
         })}
       >
         <Toolbar>
@@ -58,7 +60,7 @@ export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, isDrawerOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
@@ -74,3 +76,5 @@ export default function Header({ open, handleDrawerOpen, handleDrawerClose }) {
       </AppBar>
   );
 }
+
+export default React.memo(Header);

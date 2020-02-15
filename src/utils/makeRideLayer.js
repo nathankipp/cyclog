@@ -1,7 +1,7 @@
 import { IconLayer, PathLayer } from '@deck.gl/layers';
 import { COLORS } from '../config';
 // import rider from './rider.png';
-import rider from './directions_bike_24px.svg';
+import rider from '../static/directions_bike_24px.svg';
 // import { fetchPath } from './fetchPath';
 
 // function getPath(data) {

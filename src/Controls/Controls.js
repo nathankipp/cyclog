@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   delete: { color: '#963232' },
 }));
 
-export default function Controls({ undoPath, toggleSaveDialog, toggleDeleteConfirm }) {
+function Controls({ undoPath, toggleSaveDialog, toggleDeleteConfirm }) {
   const classes = useStyles();
 
   const handleUndoClick = () => undoPath();
@@ -65,3 +65,5 @@ export default function Controls({ undoPath, toggleSaveDialog, toggleDeleteConfi
     </>
   );
 }
+
+export default React.memo(Controls);

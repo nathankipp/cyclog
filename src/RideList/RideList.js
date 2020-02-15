@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Layout({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
+function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
 
   const handleSelection = (ride) => selectRide(ride);
@@ -54,10 +54,13 @@ export default function Layout({ rides, selectRide, toggleSaveDialog, toggleDele
       {rides
         .sort((a,b) => a.name.localeCompare(b.name))
         .map((ride) => {
-          const { id, name, isSelected } = ride;
+          const { id, name, isSelected, milage, date } = ride;
           const isNew = id === NEW_ID;
           const canEdit = isSelected && !isNew;
           const bikeColor = isSelected ? 'primary' : 'disabled';
+          let details = date ? [date] : [];
+          details.push(`${milage.toFixed(1)}mi`);
+          details = details.join(' • ')
           return (
             <ListItem
               button
@@ -69,7 +72,11 @@ export default function Layout({ rides, selectRide, toggleSaveDialog, toggleDele
               <ListItemIcon className={classes.bikeIcon}>
                 <DirectionsBike color={bikeColor} />
               </ListItemIcon>
-              <ListItemText className={classes.rideName} primary={name} />
+              <ListItemText
+                className={classes.rideName}
+                primary={name}
+                secondary={details}
+              />
               {isNew &&
                 <IconButton
                   size="small"
@@ -109,3 +116,5 @@ export default function Layout({ rides, selectRide, toggleSaveDialog, toggleDele
     </List>
   );
 }
+
+export default React.memo(RideList);

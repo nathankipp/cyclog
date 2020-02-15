@@ -1,19 +1,19 @@
 import { fetchRides, putRide, deleteRide } from './db';
-import { fetchPath } from './fetchPath';
 import { makeRideLayer } from './makeRideLayer';
-import { startAndEndIcons } from './startAndEndIcons';
-import { colorizePaths } from './colorizePaths';
-import { moveMapTo } from './moveMapTo';
-import { getNewRide } from './getNewRide';
-
-export {
-  fetchRides,
-  putRide,
-  deleteRide,
+import {
+  isNotNew,
+  getNewRide,
+  configureRides,
   fetchPath,
-  makeRideLayer,
-  startAndEndIcons,
   colorizePaths,
   moveMapTo,
-  getNewRide,
+} from './helpers';
+
+export {
+  fetchRides, putRide, deleteRide,
+  makeRideLayer,
+  isNotNew,
+  getNewRide, configureRides,
+  fetchPath, colorizePaths,
+  moveMapTo,
 };

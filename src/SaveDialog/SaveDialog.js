@@ -23,34 +23,35 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SaveDialog({ open, toggle, ride, saveRide }) {
+function SaveDialog({ open, toggle, ride, saveRide }) {
   const [name, setName] = useState(ride.name || '');
+  const [date, setDate] = useState(ride.date || '');
   const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();
 
   useEffect(() => {
     setName(ride.name);
+    setDate(ride.date);
   }, [ride]);
 
   const onSaveClick = () => {
     setDisabled(true);
     saveRide({
       ...ride,
-      name
+      name,
+      date,
     }).then(() => {
       setDisabled(false);
     });
   }
 
-  const onClose = () => {
-    toggle(false);
-  }
+  const onClose = () => toggle(false);
 
   const labels = {
     name: ride.id
-      ? 'Rename your ride'
-      : 'Give your ride a name'
+      ? 'Update your ride'
+      : 'Save this ride'
   };
 
   return (
@@ -71,6 +72,15 @@ export default function SaveDialog({ open, toggle, ride, saveRide }) {
           fullWidth
           onChange={({ target: { value } }) => setName(value)}
           value={name}
+        />
+        <TextField
+          margin="dense"
+          id="date"
+          label="Date"
+          type="text"
+          fullWidth
+          onChange={({ target: { value } }) => setDate(value)}
+          value={date}
         />
       </DialogContent>
       <DialogActions>
@@ -96,4 +106,6 @@ export default function SaveDialog({ open, toggle, ride, saveRide }) {
       </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default React.memo(SaveDialog);

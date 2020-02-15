@@ -37,7 +37,14 @@ export default class App extends React.Component {
   componentDidMount = () => {
     fetchRides()
       .then(configureRides)
-      .then(rides => this.setState({ rides }));
+      .then(rides =>
+        this.setState({ rides }, () => {
+          const selectedRide = rides.find(ride => window.location.hash === `#${ride.id}`);
+          if (selectedRide) {
+            this.selectRide(selectedRide);
+          }
+        })
+      );
   }
 
   deleteRideFn = (selectedRide) => () => {
@@ -61,6 +68,7 @@ export default class App extends React.Component {
       deleteFn,
       viewport,
     });
+    window.location.hash = selectedRide.id;
   }
 
   setPath = (path) => {

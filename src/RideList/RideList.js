@@ -40,6 +40,8 @@ function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, ch
 
   const handleSelection = (ride) => selectRide(ride);
 
+  const canAdmin = window.location.search === '?admin';
+
   return (
     <List>
       {!rides.length && (
@@ -56,7 +58,7 @@ function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, ch
         .map((ride) => {
           const { id, name, isSelected, milage, date } = ride;
           const isNew = id === NEW_ID;
-          const canEdit = isSelected && !isNew;
+          const canEdit = canAdmin && isSelected && !isNew;
           const bikeColor = isSelected ? 'primary' : 'disabled';
           let details = date ? [date] : [];
           details.push(`${milage.toFixed(1)}mi`);

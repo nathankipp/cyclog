@@ -8,6 +8,7 @@ import {
   colorizePaths,
   moveMapTo,
 } from './helpers';
+import routing from './routing';
 
 export {
   fetchRides, putRide, deleteRide,
@@ -16,4 +17,5 @@ export {
   getNewRide, configureRides,
   fetchPath, colorizePaths,
   moveMapTo,
+  routing
 };

@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-// import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import { DRAWER_WIDTH } from '../config';
+import nathan from '../static/nathan.png';
+import sarah from '../static/sarah.jpeg';
+import jesse from '../static/jesse.jpeg';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -35,14 +38,18 @@ const useStyles = makeStyles(theme => ({
     right: theme.spacing(2),
   },
   avatar: {
+    cursor: 'pointer',
     marginRight: theme.spacing(2),
+  },
+  inactive: {
+    opacity: .25
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
 }));
 
-function Header({ isDrawerOpen, toggleDrawer }) {
+function Header({ isDrawerOpen, toggleDrawer, riders, addRider, removeRider }) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => toggleDrawer(true);
@@ -67,11 +74,22 @@ function Header({ isDrawerOpen, toggleDrawer }) {
           <Typography variant="h6" noWrap>
             Sibling Cyclog
           </Typography>
-          {/*<div className={classes.avatars}>
-            <Avatar className={classes.avatar}>N</Avatar>
-            <Avatar className={classes.avatar}>S</Avatar>
-            <Avatar className={classes.avatar}>J</Avatar>
-          </div>*/}
+          <div className={classes.avatars}>
+            {[nathan,sarah,jesse].map(avatar => {
+              const name = avatar.replace(/^.*\/(\w+)..*$/, "$1");
+              const inactive = !riders.includes(name);
+              return (
+                <Avatar
+                  key={name}
+                  className={clsx(classes.avatar, inactive && classes.inactive)}
+                  src={avatar}
+                  onClick={() => {
+                    if (inactive) addRider(name); else removeRider(name);
+                  }}
+                />
+              );
+            })}
+          </div>
         </Toolbar>
       </AppBar>
   );

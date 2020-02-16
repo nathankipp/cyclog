@@ -3,9 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DirectionsBike from '@material-ui/icons/DirectionsBike';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import Avatar from '@material-ui/core/Avatar';
+import nathan from '../static/nathan.png';
+import sarah from '../static/sarah.jpeg';
+import jesse from '../static/jesse.jpeg';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import FiberNew from '@material-ui/icons/FiberNew';
@@ -18,6 +21,17 @@ const useStyles = makeStyles(theme => ({
   },
   bikeIcon: {
     minWidth: 40,
+  },
+  avatarGroup: {
+    flexDirection: 'column',
+    marginTop: 8,
+    marginRight: 8,
+  },
+  avatar: {
+    borderWidth: 1,
+    margin: '-6px 0 0 0',
+    height: theme.spacing(3),
+    width: theme.spacing(3),
   },
   rideName: {
     whiteSpace: 'nowrap',
@@ -35,12 +49,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
+const getAvatar = name => {
+  switch(name) {
+    case 'sarah': return sarah;
+    case 'jesse': return jesse;
+    case 'nathan': return nathan;
+    default: return undefined;
+  }
+}
+
+function RideList({ rides, riders, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
 
   const handleSelection = (ride) => selectRide(ride);
 
-  const canAdmin = window.location.search === '?admin';
+  const canAdmin = true; //window.location.search === '?admin';
 
   return (
     <List>
@@ -59,7 +82,6 @@ function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, ch
           const { id, name, isSelected, milage, date } = ride;
           const isNew = id === NEW_ID;
           const canEdit = canAdmin && isSelected && !isNew;
-          const bikeColor = isSelected ? 'primary' : 'disabled';
           let details = date ? [date] : [];
           details.push(`${milage.toFixed(1)}mi`);
           details = details.join(' • ')
@@ -71,12 +93,20 @@ function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, ch
               selected={isSelected}
               disableTouchRipple={isSelected}
             >
-              <ListItemIcon className={classes.bikeIcon}>
-                <DirectionsBike color={bikeColor} />
-              </ListItemIcon>
+              <AvatarGroup className={classes.avatarGroup}>
+                {ride.riders.split(',').map(rider => {
+                  return (
+                    <Avatar
+                      key={rider}
+                      className={classes.avatar}
+                      src={getAvatar(rider)}
+                    />
+                  );
+                })}
+              </AvatarGroup>
               <ListItemText
                 className={classes.rideName}
-                primary={name}
+                primary={ride.name}
                 secondary={details}
               />
               {isNew &&
@@ -120,3 +150,8 @@ function RideList({ rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, ch
 }
 
 export default React.memo(RideList);
+
+
+// <ListItemIcon className={classes.bikeIcon}>
+//   <DirectionsBike color={bikeColor} />
+// </ListItemIcon>

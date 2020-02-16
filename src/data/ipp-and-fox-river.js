@@ -1,6 +1,5 @@
 export default {
   name: "IPP & Fox River Trail",
-  color: [242, 17, 235],
   path: [
     [
       -88.11639594496974,

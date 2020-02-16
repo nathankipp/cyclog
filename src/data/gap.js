@@ -3053,7 +3053,6 @@ const path = data
 
 export default {
   name: 'GAP',
-  color: [186, 0, 0],
   path,
   viewport: {
     latitude: 39.869427062,

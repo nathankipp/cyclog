@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VIEWPORT_USA, NEW_ID } from './config';
+import { VIEWPORT_USA, NEW_ID, DEFAULT_RIDERS } from './config';
 import {
   configureRides,
   deleteRide,
@@ -11,6 +11,7 @@ import {
   makeRideLayer,
   moveMapTo,
   putRide,
+  routing,
 } from './utils';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Content from './Content';
@@ -22,9 +23,12 @@ import Controls from './Controls';
 import SaveDialog from './SaveDialog';
 import DeleteConfirm from './DeleteConfirm';
 
+// import data from './data';
+
 export default class App extends React.Component {
   state = {
     rides: [],
+    riders: routing.getRidersFromUrl() || DEFAULT_RIDERS,
     selectedRide: {},
     path: [],
     viewport: VIEWPORT_USA,
@@ -35,11 +39,26 @@ export default class App extends React.Component {
   };
 
   componentDidMount = () => {
+    if (!routing.getRidersFromUrl())
+      window.location.hash = `/${this.state.riders.join(',')}/`;
     fetchRides()
+      /*
+       * to import data
+       * 1) uncomment this block
+       * 2) let any ride in RideList be editable
+       * 3) use ui to load a ride then edit and save it
+       */
+      // .then((rides) => {
+      //   rides.push({
+      //     ...data[0],
+      //     id: NEW_ID,
+      //     riders: 'nathan',
+      //   });
+      //   return rides;
+      // })
       .then(configureRides)
-      .then(rides =>
-        this.setState({ rides }, () => {
-          const selectedRide = rides.find(ride => window.location.hash === `#${ride.id}`);
+      .then(rides => this.setState({ rides }, () => {
+          const selectedRide = routing.getSelectedRideFromUrl(rides);
           if (selectedRide) {
             this.selectRide(selectedRide);
           }
@@ -58,6 +77,7 @@ export default class App extends React.Component {
   }
 
   selectRide = (selectedRide) => {
+    routing.updateRideHash(selectedRide);
     const { rides } = this.state;
     const newRides = configureRides(rides, selectedRide);
     const viewport = moveMapTo(selectedRide.viewport);
@@ -68,7 +88,6 @@ export default class App extends React.Component {
       deleteFn,
       viewport,
     });
-    window.location.hash = selectedRide.id;
   }
 
   setPath = (path) => {
@@ -124,6 +143,16 @@ export default class App extends React.Component {
       });
   }
 
+  addRider = (name) => {
+    const riders = [...this.state.riders, name];
+    routing.updateRidersHash(riders);
+    this.setState({ riders });
+  }
+  removeRider = (name) => {
+    const riders = this.state.riders.filter(n => n !== name);
+    routing.updateRidersHash(riders);
+    this.setState({ riders });
+  }
   toggleDrawer = (isDrawerOpen) => this.setState({ isDrawerOpen });
   toggleSaveDialog = (isSaveDialogOpen) => this.setState({ isSaveDialogOpen });
   toggleDeleteConfirm = (isDeleteConfirmOpen) => this.setState({ isDeleteConfirmOpen });
@@ -131,7 +160,8 @@ export default class App extends React.Component {
 
   render() {
     const {
-      rides,
+      rides: allRides,
+      riders,
       selectedRide,
       path,
       viewport,
@@ -140,6 +170,12 @@ export default class App extends React.Component {
       isDeleteConfirmOpen,
       deleteFn
     } = this.state;
+
+    const rides = allRides
+      .filter((ride) => riders
+        .map((name) => ride.riders.includes(name) || !ride.riders)
+        .every(v => v)
+      );
     const layers = [...rides.map(makeRideLayer)];
     const showControls = !!path.length && selectedRide && selectedRide.id === NEW_ID;
 
@@ -149,6 +185,9 @@ export default class App extends React.Component {
         <Header
           isDrawerOpen={isDrawerOpen}
           toggleDrawer={this.toggleDrawer}
+          riders={riders}
+          addRider={this.addRider}
+          removeRider={this.removeRider}
         />
         <Drawer
           isDrawerOpen={isDrawerOpen}
@@ -156,6 +195,7 @@ export default class App extends React.Component {
         >
           <RideList
             rides={rides}
+            riders={riders}
             selectRide={this.selectRide}
             toggleSaveDialog={this.toggleSaveDialog}
             toggleDeleteConfirm={this.toggleDeleteConfirm}

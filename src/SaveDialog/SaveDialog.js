@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,12 +8,27 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import nathan from '../static/nathan.png';
+import sarah from '../static/sarah.jpeg';
+import jesse from '../static/jesse.jpeg';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
     margin: theme.spacing(1),
     position: 'relative',
+  },
+  avatars: {
+    display: 'flex',
+    justifyContent: 'space-evenly'
+  },
+  avatar: {
+    cursor: 'pointer',
+    margin: theme.spacing(2),
+  },
+  inactive: {
+    opacity: .25,
   },
   buttonProgress: {
     position: 'absolute',
@@ -23,25 +39,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const getDefaultRiders = riders => (riders && riders.split(',')) || [];
+
 function SaveDialog({ open, toggle, ride, saveRide }) {
   const [name, setName] = useState(ride.name || '');
+  const [riders, setRiders] = useState(getDefaultRiders(ride.riders));
   const [date, setDate] = useState(ride.date || '');
   const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();
 
   useEffect(() => {
+    setRiders(getDefaultRiders(ride.riders));
     setName(ride.name);
     setDate(ride.date);
   }, [ride]);
 
+  const addRider = name => setRiders([...riders, name]);
+  const removeRider = name => setRiders(riders.filter(n => n !== name));
+
   const onSaveClick = () => {
     setDisabled(true);
+    const r = riders.sort((a,b) => a[1].localeCompare(b[1])).join(',') || undefined;
     saveRide({
       ...ride,
+      riders: r,
       name,
       date,
-    }).then(() => {
+    }).finally(() => {
       setDisabled(false);
     });
   }
@@ -50,8 +75,8 @@ function SaveDialog({ open, toggle, ride, saveRide }) {
 
   const labels = {
     name: ride.id
-      ? 'Update your ride'
-      : 'Save this ride'
+      ? 'Update this ride'
+      : 'Save your ride'
   };
 
   return (
@@ -63,6 +88,22 @@ function SaveDialog({ open, toggle, ride, saveRide }) {
         <DialogContentText>
           {labels.name}
         </DialogContentText>
+        <div className={classes.avatars}>
+          {[nathan,sarah,jesse].map(avatar => {
+            const name = avatar.replace(/^.*\/(\w+)..*$/, "$1");
+            const inactive = !riders.includes(name);
+            return (
+              <Avatar
+                key={name}
+                className={clsx(classes.avatar, inactive && classes.inactive)}
+                src={avatar}
+                onClick={() => {
+                  if (inactive) addRider(name); else removeRider(name);
+                }}
+              />
+            );
+          })}
+        </div>
         <TextField
           autoFocus
           margin="dense"

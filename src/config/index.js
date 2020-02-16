@@ -1,4 +1,5 @@
 import {
+  DEFAULT_RIDERS,
   MAPBOX_ACCESS_TOKEN,
   DRAWER_WIDTH,
   NEW_ID,
@@ -7,6 +8,7 @@ import {
 } from './config';
 
 export {
+  DEFAULT_RIDERS,
   MAPBOX_ACCESS_TOKEN,
   DRAWER_WIDTH,
   NEW_ID,

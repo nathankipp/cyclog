@@ -1,6 +1,5 @@
 export default {
   name: "Port Gamble to Seattle",
-  color: [51, 16, 227],
   path: [
     [
       -122.58512328647916,

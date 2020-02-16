@@ -1,6 +1,5 @@
 export default {
   name: "IPP & Great Western to Fox River",
-  color: [96, 66, 245],
   path: [
     [
       -87.82281419778676,

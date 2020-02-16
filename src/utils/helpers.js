@@ -38,6 +38,7 @@ export const configureRides = (rides, selectedRide = {}) =>
     return {
       ...ride,
       isSelected,
+      riders: ride.riders || '',
       icons: isSelected ? startAndEndIcons(ride) : [],
       color: isSelected ? COLORS.blue : COLORS.black,
       milage: ride.path.length > 1

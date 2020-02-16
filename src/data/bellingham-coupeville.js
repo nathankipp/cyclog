@@ -1,6 +1,5 @@
 export default {
   name: "Bellingham to Coupeville",
-  color: [51, 16, 227],
   path: [
     [
       -122.50226658467227,

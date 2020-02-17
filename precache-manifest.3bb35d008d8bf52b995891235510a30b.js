@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c886603dba1253f980ecf3777ddf4226",
+    "revision": "925744ef05402342d0364ef93fa5f164",
     "url": "/cyclog/index.html"
   },
   {

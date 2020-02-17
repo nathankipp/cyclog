@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/cyclog/precache-manifest.3bb35d008d8bf52b995891235510a30b.js"
+  "/cyclog/precache-manifest.797e86fdf6c5c019614349bd2ff6ca30.js"
 );
 
 self.addEventListener('message', (event) => {

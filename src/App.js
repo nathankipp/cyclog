@@ -39,8 +39,6 @@ export default class App extends React.Component {
   };
 
   componentDidMount = () => {
-    if (!routing.getRidersFromUrl())
-      window.location.hash = `/${this.state.riders.join(',')}/`;
     fetchRides()
       /*
        * to import data

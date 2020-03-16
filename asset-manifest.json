@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cyclog/static/css/main.34de6062.chunk.css",
-    "main.js": "/cyclog/static/js/main.c37cbe66.chunk.js",
-    "main.js.map": "/cyclog/static/js/main.c37cbe66.chunk.js.map",
+    "main.js": "/cyclog/static/js/main.b08cabf7.chunk.js",
+    "main.js.map": "/cyclog/static/js/main.b08cabf7.chunk.js.map",
     "runtime-main.js": "/cyclog/static/js/runtime-main.e0bab9a5.js",
     "runtime-main.js.map": "/cyclog/static/js/runtime-main.e0bab9a5.js.map",
     "static/css/2.d9a8a5a7.chunk.css": "/cyclog/static/css/2.d9a8a5a7.chunk.css",
     "static/js/2.89dcdb29.chunk.js": "/cyclog/static/js/2.89dcdb29.chunk.js",
     "static/js/2.89dcdb29.chunk.js.map": "/cyclog/static/js/2.89dcdb29.chunk.js.map",
     "index.html": "/cyclog/index.html",
-    "precache-manifest.47cfed5b3fcba55a39899a5b21f5d08a.js": "/cyclog/precache-manifest.47cfed5b3fcba55a39899a5b21f5d08a.js",
+    "precache-manifest.1256662f81d19e336e695132d2d800db.js": "/cyclog/precache-manifest.1256662f81d19e336e695132d2d800db.js",
     "service-worker.js": "/cyclog/service-worker.js",
     "static/css/2.d9a8a5a7.chunk.css.map": "/cyclog/static/css/2.d9a8a5a7.chunk.css.map",
     "static/css/main.34de6062.chunk.css.map": "/cyclog/static/css/main.34de6062.chunk.css.map",
@@ -23,6 +23,6 @@
     "static/css/2.d9a8a5a7.chunk.css",
     "static/js/2.89dcdb29.chunk.js",
     "static/css/main.34de6062.chunk.css",
-    "static/js/main.c37cbe66.chunk.js"
+    "static/js/main.b08cabf7.chunk.js"
   ]
 }

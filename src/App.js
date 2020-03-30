@@ -17,6 +17,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Content from './Content';
 import Header from './Header';
 import Drawer from './Drawer';
+import RideDetails from './RideDetails';
 import RideList from './RideList';
 import Map from './Map';
 import Controls from './Controls';
@@ -207,6 +208,7 @@ export default class App extends React.Component {
             setPath={this.setPath}
             layers={layers}
           />
+          {selectedRide.id && <RideDetails ride={selectedRide} />}
           {showControls && (
             <Controls
               undoPath={this.undoPath}

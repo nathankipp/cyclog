@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
@@ -34,14 +35,20 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(3),
   },
   rideName: {
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    paddingRight: 40,
+    '& span': {
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+    },
+    paddingRight: '0 10px 0 0',
+  },
+  selected: {
+    paddingRight: 75,
   },
   actionIcons: {
     position: 'absolute',
     right: 8,
+    zIndex: 10,
   },
   actionIconButton: {
     marginLeft: 8,
@@ -84,7 +91,7 @@ function RideList({ rides, riders, selectRide, toggleSaveDialog, toggleDeleteCon
           const canEdit = canAdmin && isSelected && !isNew;
           let details = date ? [date] : [];
           details.push(`${milage.toFixed(1)}mi`);
-          details = details.join(' • ')
+          details = details.join(' • ');
           return (
             <ListItem
               button
@@ -105,7 +112,7 @@ function RideList({ rides, riders, selectRide, toggleSaveDialog, toggleDeleteCon
                 })}
               </AvatarGroup>
               <ListItemText
-                className={classes.rideName}
+                className={clsx(classes.rideName, canEdit && classes.selected)}
                 primary={ride.name}
                 secondary={details}
               />

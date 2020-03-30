@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -67,7 +67,7 @@ function Header({ isDrawerOpen, toggleDrawer, riders, addRider, removeRider }) {
   const classes = useStyles();
 
   const handleDrawerOpen = () => toggleDrawer(true);
-  const small = useMediaQuery('(max-width: 420px)');
+  // const small = useMediaQuery('(max-width: 420px)');
 
   return (
       <AppBar

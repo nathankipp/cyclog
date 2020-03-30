@@ -70,7 +70,8 @@ export default class App extends React.Component {
     return deleteRide(selectedRide)
       .then(() => new Promise(resolve =>
         this.setState({
-          rides: rides.filter(r => r.id !== selectedRide.id)
+          rides: rides.filter(r => r.id !== selectedRide.id),
+          selectedRide: {},
         }, resolve))
       );
   }
@@ -100,7 +101,7 @@ export default class App extends React.Component {
         ...newRide
       ];
       newState.rides = configureRides(newRides, newRide[0]);
-      newState.selectedRide = newRide[0];
+      newState.selectedRide = newState.rides.find(r => r.isSelected);
     } else {
       newState.rides = rides.filter(isNotNew);
       newState.selectedRide = {};

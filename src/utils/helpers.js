@@ -42,8 +42,8 @@ export const configureRides = (rides, selectedRide = {}) =>
       icons: isSelected ? startAndEndIcons(ride) : [],
       color: isSelected ? COLORS.blue : COLORS.black,
       milage: ride.path.length > 1
-      ? length(lineString(ride.path), { units: 'miles' })
-      : 0
+        ? length(lineString(ride.path), { units: 'miles' })
+        : 0,
     };
   });
 

@@ -51,12 +51,12 @@ const getAvatar = name => {
 function RideDetails({ ride }) {
   const classes = useStyles();
 
-  const { date, milage, name, riders } = ride;
+  const { date, milage = 0, name, riders = '' } = ride;
   let details = date ? [date] : [];
-  if (milage) {
+  if (milage !== undefined) {
     details.push(`${milage.toFixed(1)}mi`);
   }
-  details = details.join(' • '); console.log(ride);
+  details = details.join(' • '); console.log(ride.milage);
 
   return (
     <Card className={classes.card}>

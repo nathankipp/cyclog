@@ -7,8 +7,16 @@ export default {
   },
   getSelectedRideFromUrl: (rides) => rides.find(ride =>
     hash().match(new RegExp(`/${ride.id}$`))),
-  updateRidersHash: (riders) =>
-    window.location.hash = hash().replace(/\/[\w,]*\//, `/${riders.join(',')}/`),
+  updateRidersHash: (riders) => {
+    const r = riders.join(',');
+    let newHash;
+    if (hash()) {
+      newHash = hash().replace(/#\/[\w,]*\//, `/${r}/`);
+    } else {
+      newHash = `/${r}/`;
+    }
+    window.location.hash = newHash;
+  },
   updateRideHash: (ride) =>
     window.location.hash = hash().replace(/\/[\w\d-]*$/, `/${ride.id}`)
 }

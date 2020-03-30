@@ -40,6 +40,9 @@ export default class App extends React.Component {
   };
 
   componentDidMount = () => {
+    if (!window.location.hash) {
+      window.location.hash = "//";
+    }
     fetchRides()
       /*
        * to import data

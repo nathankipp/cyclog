@@ -56,7 +56,7 @@ function RideDetails({ ride }) {
   if (milage !== undefined) {
     details.push(`${milage.toFixed(1)}mi`);
   }
-  details = details.join(' • '); console.log(ride.milage);
+  details = details.join(' • ');
 
   return (
     <Card className={classes.card}>

@@ -8,8 +8,13 @@ import App from './App';
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/:riders([nathan|sarah|jesse|,]+)/:rideId?" component={App} />
-      <Route render={() => <Redirect to="/nathan,sarah,jesse" />} />
+      <Route path={[
+          '/:riders([nathan|sarah|jesse|,]+)/:rideId?',
+          '/cyclog/:riders([nathan|sarah|jesse|,]+)/:rideId?',
+        ]}
+        component={App}
+      />
+      <Route render={() => <Redirect to="/cyclog/nathan,sarah,jesse" />} />
     </Switch>
   </Router>,
   document.getElementById('root'));

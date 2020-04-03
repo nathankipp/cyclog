@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cyclog/static/css/main.34de6062.chunk.css",
-    "main.js": "/cyclog/static/js/main.5b736bed.chunk.js",
-    "main.js.map": "/cyclog/static/js/main.5b736bed.chunk.js.map",
+    "main.js": "/cyclog/static/js/main.6c1f2785.chunk.js",
+    "main.js.map": "/cyclog/static/js/main.6c1f2785.chunk.js.map",
     "runtime-main.js": "/cyclog/static/js/runtime-main.d34ab93e.js",
     "runtime-main.js.map": "/cyclog/static/js/runtime-main.d34ab93e.js.map",
     "static/css/2.dd221cdc.chunk.css": "/cyclog/static/css/2.dd221cdc.chunk.css",
-    "static/js/2.fc7d8c5c.chunk.js": "/cyclog/static/js/2.fc7d8c5c.chunk.js",
-    "static/js/2.fc7d8c5c.chunk.js.map": "/cyclog/static/js/2.fc7d8c5c.chunk.js.map",
+    "static/js/2.11bf29e2.chunk.js": "/cyclog/static/js/2.11bf29e2.chunk.js",
+    "static/js/2.11bf29e2.chunk.js.map": "/cyclog/static/js/2.11bf29e2.chunk.js.map",
     "index.html": "/cyclog/index.html",
-    "precache-manifest.70fe4bca9aa3eb73a9724068d0955d64.js": "/cyclog/precache-manifest.70fe4bca9aa3eb73a9724068d0955d64.js",
+    "precache-manifest.91bc0ed0b7f43bfe2777444f8a8e041b.js": "/cyclog/precache-manifest.91bc0ed0b7f43bfe2777444f8a8e041b.js",
     "service-worker.js": "/cyclog/service-worker.js",
     "static/css/2.dd221cdc.chunk.css.map": "/cyclog/static/css/2.dd221cdc.chunk.css.map",
     "static/css/main.34de6062.chunk.css.map": "/cyclog/static/css/main.34de6062.chunk.css.map",
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.d34ab93e.js",
     "static/css/2.dd221cdc.chunk.css",
-    "static/js/2.fc7d8c5c.chunk.js",
+    "static/js/2.11bf29e2.chunk.js",
     "static/css/main.34de6062.chunk.css",
-    "static/js/main.5b736bed.chunk.js"
+    "static/js/main.6c1f2785.chunk.js"
   ]
 }

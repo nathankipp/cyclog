@@ -103,14 +103,14 @@ function Header({ match, isDrawerOpen, toggleDrawer, addRider, removeRider }) {
               if (inactive) {
                 const newRiders = `${riders.concat(`,${name}`)}`;
                 return (
-                  <Link key={name} to={`/cyclog/${newRiders}${rideId ? `/${rideId}` : ''}`}>
+                  <Link key={name} to={`/${newRiders}${rideId ? `/${rideId}` : ''}`}>
                     <A />
                   </Link>
                 );
               } else if (riders.includes(',')) {
                 const newRiders = riders.split(',').filter(r => r !== name).join(',');
                 return (
-                  <Link key={name} to={`/cyclog/${newRiders}${rideId ? `/${rideId}` : ''}`}>
+                  <Link key={name} to={`/${newRiders}${rideId ? `/${rideId}` : ''}`}>
                     <A />
                   </Link>
                 );

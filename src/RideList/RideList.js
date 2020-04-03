@@ -101,7 +101,7 @@ function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConf
           details.push(`${milage.toFixed(1)}mi`);
           details = details.join(' • ');
           return (
-            <Link to={`/cyclog/${riders}/${id}`} key={name.concat(id)}>
+            <Link to={`/${riders}/${id}`} key={name.concat(id)}>
               <ListItem
                 button
                 onClick={() => handleSelection(ride)}

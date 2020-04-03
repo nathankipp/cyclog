@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 // import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -47,7 +48,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   avatar: {
-    cursor: 'pointer',
     marginRight: theme.spacing(2),
     '@media only screen and (max-width: 420px)': {
       height: theme.spacing(4),
@@ -63,10 +63,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Header({ isDrawerOpen, toggleDrawer, riders, addRider, removeRider }) {
+function Header({ match, isDrawerOpen, toggleDrawer, addRider, removeRider }) {
   const classes = useStyles();
-
   const handleDrawerOpen = () => toggleDrawer(true);
+  const { riders, rideId } = match.params;
+  const isInactive = name => !riders.includes(name);
   // const small = useMediaQuery('(max-width: 420px)');
 
   return (
@@ -92,17 +93,30 @@ function Header({ isDrawerOpen, toggleDrawer, riders, addRider, removeRider }) {
           <div className={clsx(classes.avatars, isDrawerOpen && classes.hide)}>
             {[nathan,sarah,jesse].map(avatar => {
               const name = avatar.replace(/^.*\/(\w+)..*$/, "$1");
-              const inactive = !riders.includes(name);
-              return (
+              const inactive = isInactive(name);
+              const A = () => (
                 <Avatar
-                  key={name}
                   className={clsx(classes.avatar, inactive && classes.inactive, isDrawerOpen && classes.hideForSmall)}
                   src={avatar}
-                  onClick={() => {
-                    if (inactive) addRider(name); else removeRider(name);
-                  }}
                 />
               );
+              if (inactive) {
+                const newRiders = `${riders.concat(`,${name}`)}`;
+                return (
+                  <Link key={name} to={`/${newRiders}${rideId ? `/${rideId}` : ''}`}>
+                    <A />
+                  </Link>
+                );
+              } else if (riders.includes(',')) {
+                const newRiders = riders.split(',').filter(r => r !== name).join(',');
+                return (
+                  <Link key={name} to={`/${newRiders}${rideId ? `/${rideId}` : ''}`}>
+                    <A />
+                  </Link>
+                );
+              } else {
+                return (<A key={name} />);
+              }
             })}
           </div>
         </Toolbar>
@@ -110,4 +124,4 @@ function Header({ isDrawerOpen, toggleDrawer, riders, addRider, removeRider }) {
   );
 }
 
-export default React.memo(Header);
+export default withRouter(React.memo(Header));

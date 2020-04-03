@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter, useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -17,6 +18,12 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { NEW_ID } from '../config';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    '& a': {
+      color: 'black',
+      textDecoration: 'none',
+    }
+  },
   loadingRides: {
     padding: theme.spacing(0, 2),
   },
@@ -64,16 +71,17 @@ const getAvatar = name => {
     default: return undefined;
   }
 }
+const getParams = search => new URLSearchParams(search);
+const getCanAdmin = search => getParams(search).has('admin');
 
-function RideList({ rides, riders, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
+function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
-
+  const { riders } = match.params;
+  const canAdmin = getCanAdmin(useLocation().search);
   const handleSelection = (ride) => selectRide(ride);
 
-  const canAdmin = true; //window.location.search === '?admin';
-
   return (
-    <List>
+    <List className={classes.root}>
       {!rides.length && (
         <>
           <ListItem><ListItemText primary="Loading..."/></ListItem>
@@ -93,72 +101,72 @@ function RideList({ rides, riders, selectRide, toggleSaveDialog, toggleDeleteCon
           details.push(`${milage.toFixed(1)}mi`);
           details = details.join(' • ');
           return (
-            <ListItem
-              button
-              key={name.concat(id)}
-              onClick={() => handleSelection(ride)}
-              selected={isSelected}
-              disableTouchRipple={isSelected}
-            >
-              <AvatarGroup className={classes.avatarGroup}>
-                {ride.riders.split(',').map(rider => {
-                  return (
-                    <Avatar
-                      key={rider}
-                      className={classes.avatar}
-                      src={getAvatar(rider)}
-                    />
-                  );
-                })}
-              </AvatarGroup>
-              <ListItemText
-                className={clsx(classes.rideName, canEdit && classes.selected)}
-                primary={ride.name}
-                secondary={details}
-              />
-              {isNew &&
-                <IconButton
-                  size="small"
-                  className={classes.actionIcons}
-                  disabled
-                >
-                  <FiberNew fontSize="small" />
-                </IconButton>
-              }
-              {canEdit &&
-                <div className={classes.actionIcons}>
+            <Link to={`/${riders}/${id}`} key={name.concat(id)}>
+              <ListItem
+                button
+                onClick={() => handleSelection(ride)}
+                selected={isSelected}
+                disableTouchRipple={isSelected}
+              >
+                <AvatarGroup className={classes.avatarGroup}>
+                  {ride.riders.split(',').map(rider => {
+                    return (
+                      <Avatar
+                        key={rider}
+                        className={classes.avatar}
+                        src={getAvatar(rider)}
+                      />
+                    );
+                  })}
+                </AvatarGroup>
+                <ListItemText
+                  className={clsx(classes.rideName, canEdit && classes.selected)}
+                  primary={ride.name}
+                  secondary={details}
+                />
+                {isNew &&
                   <IconButton
-                    className={classes.actionIconButton}
                     size="small"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleSaveDialog(true);
-                    }}
+                    className={classes.actionIcons}
+                    disabled
                   >
-                    <EditIcon fontSize="small" />
+                    <FiberNew fontSize="small" />
                   </IconButton>
-                  <IconButton
-                    className={classes.actionIconButton}
-                    size="small"
-                    onClick={(e) => {
+                }
+                {canEdit &&
+                  <div className={classes.actionIcons}>
+                    <IconButton
+                      className={classes.actionIconButton}
+                      size="small"
+                      color="primary"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleSaveDialog(true);
+                      }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton
+                      className={classes.actionIconButton}
+                      color="secondary"
+                      size="small"
+                      onClick={(e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         toggleDeleteConfirm(true);
-                    }}
-                  >
-                    <DeleteForever fontSize="small" />
-                  </IconButton>
-                </div>
-              }
-            </ListItem>
+                      }}
+                    >
+                      <DeleteForever fontSize="small" />
+                    </IconButton>
+                  </div>
+                }
+              </ListItem>
+            </Link>
           );
       })}
     </List>
   );
 }
 
-export default React.memo(RideList);
-
-
-// <ListItemIcon className={classes.bikeIcon}>
-//   <DirectionsBike color={bikeColor} />
-// </ListItemIcon>
+export default withRouter(React.memo(RideList));

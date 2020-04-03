@@ -1,7 +1,8 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VIEWPORT_USA, NEW_ID, DEFAULT_RIDERS } from './config';
+import { VIEWPORT_USA, NEW_ID } from './config';
 import {
   configureRides,
   deleteRide,
@@ -26,10 +27,10 @@ import DeleteConfirm from './DeleteConfirm';
 
 // import data from './data';
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = {
     rides: [],
-    riders: routing.getRidersFromUrl() || DEFAULT_RIDERS,
+    riders: routing.getRidersFromUrl(this.props.match),
     selectedRide: {},
     path: [],
     viewport: VIEWPORT_USA,
@@ -40,9 +41,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount = () => {
-    if (!window.location.hash) {
-      window.location.hash = "//";
-    }
+    const { rideId } = this.props.match.params;
     fetchRides()
       /*
        * to import data
@@ -60,7 +59,7 @@ export default class App extends React.Component {
       // })
       .then(configureRides)
       .then(rides => this.setState({ rides }, () => {
-          const selectedRide = routing.getSelectedRideFromUrl(rides);
+          const selectedRide = rides.find(r => r.id === rideId);
           if (selectedRide) {
             this.selectRide(selectedRide);
           }
@@ -80,7 +79,6 @@ export default class App extends React.Component {
   }
 
   selectRide = (selectedRide) => {
-    routing.updateRideHash(selectedRide);
     const { rides } = this.state;
     const newRides = configureRides(rides, selectedRide);
     const viewport = moveMapTo(selectedRide.viewport);
@@ -146,16 +144,6 @@ export default class App extends React.Component {
       });
   }
 
-  addRider = (name) => {
-    const riders = [...this.state.riders, name];
-    routing.updateRidersHash(riders);
-    this.setState({ riders });
-  }
-  removeRider = (name) => {
-    const riders = this.state.riders.filter(n => n !== name);
-    routing.updateRidersHash(riders);
-    this.setState({ riders });
-  }
   toggleDrawer = (isDrawerOpen) => this.setState({ isDrawerOpen });
   toggleSaveDialog = (isSaveDialogOpen) => this.setState({ isSaveDialogOpen });
   toggleDeleteConfirm = (isDeleteConfirmOpen) => this.setState({ isDeleteConfirmOpen });
@@ -164,7 +152,6 @@ export default class App extends React.Component {
   render() {
     const {
       rides: allRides,
-      riders,
       selectedRide,
       path,
       viewport,
@@ -173,9 +160,20 @@ export default class App extends React.Component {
       isDeleteConfirmOpen,
       deleteFn
     } = this.state;
+    const { rideId } = this.props.match.params;
 
+    // let viewport = this.state.viewport;
+    // if (selectedRide && selectedRide.id !== rideId) {
+    //   const r = allRides.find(r => r.id === rideId);
+    //   if (r && r.viewport) {
+    //     viewport = r.viewport;
+    //   }
+    // }
+
+    const { riders } = this.props.match.params;
     const rides = allRides
       .filter((ride) => riders
+        .split(',')
         .map((name) => ride.riders.includes(name) || !ride.riders)
         .every(v => v)
       );
@@ -198,7 +196,6 @@ export default class App extends React.Component {
         >
           <RideList
             rides={rides}
-            riders={riders}
             selectRide={this.selectRide}
             toggleSaveDialog={this.toggleSaveDialog}
             toggleDeleteConfirm={this.toggleDeleteConfirm}
@@ -236,3 +233,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default withRouter(App);

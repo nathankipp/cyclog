@@ -1,9 +1,10 @@
 const hash = () => window.location.hash;
 
 export default {
-  getRidersFromUrl: () => {
-    const riders = hash().match(/#\/([\w,]*)\//);
-    return riders && riders[1] && riders[1].split(',');
+  getRidersFromUrl: (match) => {
+    const { riders } = match.params;
+    // const riders = hash().match(/#\/([\w,]*)\//);
+    return riders && riders.split(',');
   },
   getSelectedRideFromUrl: (rides) => rides.find(ride =>
     hash().match(new RegExp(`/${ride.id}$`))),

@@ -160,8 +160,8 @@ class App extends React.Component {
       isDeleteConfirmOpen,
       deleteFn
     } = this.state;
-    const { rideId } = this.props.match.params;
 
+    // const { rideId } = this.props.match.params;
     // let viewport = this.state.viewport;
     // if (selectedRide && selectedRide.id !== rideId) {
     //   const r = allRides.find(r => r.id === rideId);

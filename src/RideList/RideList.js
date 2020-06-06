@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, useLocation, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -66,18 +66,18 @@ const useStyles = makeStyles(theme => ({
 const getAvatar = name => {
   switch(name) {
     case 'sarah': return sarah;
-    case 'jesse': return jesse;
+    case 'jesse':
+    case 'jessecoconut':
+      return jesse;
     case 'nathan': return nathan;
     default: return undefined;
   }
 }
-const getParams = search => new URLSearchParams(search);
-const getCanAdmin = search => getParams(search).has('admin');
 
 function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
   const { riders } = match.params;
-  const canAdmin = getCanAdmin(useLocation().search);
+  const canAdmin = !!window.sessionStorage.getItem('cyclog');
   const handleSelection = (ride) => selectRide(ride);
 
   return (
@@ -108,17 +108,19 @@ function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConf
                 selected={isSelected}
                 disableTouchRipple={isSelected}
               >
-                <AvatarGroup className={classes.avatarGroup}>
-                  {ride.riders.split(',').map(rider => {
-                    return (
-                      <Avatar
-                        key={rider}
-                        className={classes.avatar}
-                        src={getAvatar(rider)}
-                      />
-                    );
-                  })}
-                </AvatarGroup>
+                {riders !== 'jessecoconut' && (
+                  <AvatarGroup className={classes.avatarGroup}>
+                    {ride.riders.split(',').map(rider => {
+                      return (
+                        <Avatar
+                          key={rider}
+                          className={classes.avatar}
+                          src={getAvatar(rider)}
+                        />
+                      );
+                    })}
+                  </AvatarGroup>
+                )}
                 <ListItemText
                   className={clsx(classes.rideName, canEdit && classes.selected)}
                   primary={ride.name}

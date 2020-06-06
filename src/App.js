@@ -174,7 +174,12 @@ class App extends React.Component {
     const rides = allRides
       .filter((ride) => riders
         .split(',')
-        .map((name) => ride.riders.includes(name) || !ride.riders)
+        .map((name) => {
+          if (name === 'jessecoconut') {
+            return ride.riders === 'jesse' || !ride.riders;
+          }
+          return ride.riders.includes(name) || !ride.riders
+        })
         .every(v => v)
       );
     const layers = [...rides.map(makeRideLayer)];

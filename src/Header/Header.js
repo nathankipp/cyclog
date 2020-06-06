@@ -88,10 +88,16 @@ function Header({ match, isDrawerOpen, toggleDrawer, addRider, removeRider }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Sibling Cyclog
+            {riders === 'jessecoconut' ? 'Jesse Coconut\'s Cyclog' : 'Sibling Cyclog'}
           </Typography>
           <div className={clsx(classes.avatars, isDrawerOpen && classes.hide)}>
-            {[nathan,sarah,jesse].map(avatar => {
+            {riders === 'jessecoconut' && (
+              <Avatar
+                className={classes.avatar}
+                src={jesse}
+              />
+            )}
+            {riders !== 'jessecoconut' && [nathan,sarah,jesse].map(avatar => {
               const name = avatar.replace(/^.*\/(\w+)..*$/, "$1");
               const inactive = isInactive(name);
               const A = () => (

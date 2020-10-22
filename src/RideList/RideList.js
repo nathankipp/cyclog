@@ -82,13 +82,22 @@ function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConf
 
   return (
     <List className={classes.root}>
-      {!rides.length && (
+      {!rides.length ? (
         <>
           <ListItem><ListItemText primary="Loading..."/></ListItem>
           <div className={classes.loadingRides}>
             <LinearProgress />
           </div>
         </>
+      ) : (
+        <Link to={`/${riders}`}>
+          <ListItem
+            button
+            onClick={() => handleSelection(null)}
+          >
+            Reset map
+          </ListItem>
+        </Link>
       )
       }
       {rides

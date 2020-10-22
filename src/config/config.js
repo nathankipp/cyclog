@@ -10,8 +10,8 @@ export const VIEWPORT_USA = {
   latitude: 39.0,
   longitude: -97.0,
   zoom: 3.25,
-  transitionDuration: 'auto',
-  transitionInterpolator: new FlyToInterpolator(),
+  // transitionDuration: 0,
+  // transitionInterpolator: new FlyToInterpolator(),
   // transitionEasing: d3.easeCubic,
 };
 
@@ -19,5 +19,6 @@ export const COLORS = {
   black: [0, 0, 0],
   red: [150, 50, 50],
   green: [50, 150 ,50],
-  blue: [50, 50, 150]
+  blue: [50, 50, 150],
+  yellow: [255, 255, 0],
 };

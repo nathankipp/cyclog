@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VIEWPORT_USA, NEW_ID } from './config';
+import { VIEWPORT_USA, NEW_ID, COLORS } from './config';
 import {
   configureRides,
   deleteRide,
@@ -79,6 +79,10 @@ class App extends React.Component {
   }
 
   selectRide = (selectedRide) => {
+    if (!selectedRide) {
+      this.setState({ viewport: moveMapTo(VIEWPORT_USA) });
+      return;
+    }
     const { rides } = this.state;
     const newRides = configureRides(rides, selectedRide);
     const viewport = moveMapTo(selectedRide.viewport);
@@ -181,7 +185,11 @@ class App extends React.Component {
           return ride.riders.includes(name) || !ride.riders
         })
         .every(v => v)
-      );
+      )
+      .map(ride => ({
+        ...ride,
+        color: path.length && ride !== selectedRide ? COLORS.yellow : ride.color
+      }));
     const layers = [...rides.map(makeRideLayer)];
     const showControls = !!path.length && selectedRide && selectedRide.id === NEW_ID;
 

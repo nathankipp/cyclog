@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e3b79e13bc6bfe37f10223ac037a2d92",
+    "revision": "8f39758ab96e4620824d2bba09717319",
     "url": "/cyclog/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cyclog/static/css/2.b4a16772.chunk.css"
   },
   {
-    "revision": "5c850ce2118e7cd50e5f",
+    "revision": "d1ba44f1c992527acbc1",
     "url": "/cyclog/static/css/main.34de6062.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cyclog/static/js/2.a33fe492.chunk.js"
   },
   {
-    "revision": "5c850ce2118e7cd50e5f",
-    "url": "/cyclog/static/js/main.42a4e6d2.chunk.js"
+    "revision": "d1ba44f1c992527acbc1",
+    "url": "/cyclog/static/js/main.dae5d6eb.chunk.js"
   },
   {
     "revision": "c0bdde8d048ab7028303",

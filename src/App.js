@@ -188,8 +188,9 @@ class App extends React.Component {
       )
       .map(ride => ({
         ...ride,
-        color: path.length && ride !== selectedRide ? COLORS.yellow : ride.color
-      }));
+        color: path.length && ride.id !== selectedRide.id ? COLORS.gray : ride.color,
+      }))
+      .sort((a,b) => +(a.id === selectedRide.id) - +(b.id === selectedRide.id));
     const layers = [...rides.map(makeRideLayer)];
     const showControls = !!path.length && selectedRide && selectedRide.id === NEW_ID;
 

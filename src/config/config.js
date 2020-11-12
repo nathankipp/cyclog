@@ -21,4 +21,5 @@ export const COLORS = {
   green: [50, 150 ,50],
   blue: [50, 50, 150],
   yellow: [255, 255, 0],
+  gray: [200,200,200],
 };

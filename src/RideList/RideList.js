@@ -74,7 +74,7 @@ const getAvatar = name => {
   }
 }
 
-function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConfirm, children }) {
+function RideList({ match, rides, selectRide, toggleShowAll, toggleSaveDialog, toggleDeleteConfirm, children }) {
   const classes = useStyles();
   const { riders } = match.params;
   const canAdmin = !!window.sessionStorage.getItem('cyclog');
@@ -90,14 +90,22 @@ function RideList({ match, rides, selectRide, toggleSaveDialog, toggleDeleteConf
           </div>
         </>
       ) : (
-        <Link to={`/${riders}`}>
+        <>
           <ListItem
             button
-            onClick={() => handleSelection(null)}
+            onClick={() => toggleShowAll()}
           >
-            Reset map
+            Toggle ride highlighting
           </ListItem>
-        </Link>
+          <Link to={`/${riders}`}>
+            <ListItem
+              button
+              onClick={() => handleSelection(null)}
+            >
+              Reset map
+            </ListItem>
+          </Link>
+        </>
       )
       }
       {rides

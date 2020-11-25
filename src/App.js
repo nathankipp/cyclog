@@ -34,6 +34,7 @@ class App extends React.Component {
     selectedRide: {},
     path: [],
     viewport: VIEWPORT_USA,
+    isShowAll: false,
     isDrawerOpen: true,
     isSaveDialogOpen: false,
     isDeleteConfirmOpen: false,
@@ -88,6 +89,7 @@ class App extends React.Component {
     const viewport = moveMapTo(selectedRide.viewport);
     const deleteFn = this.deleteRideFn(selectedRide);
     this.setState({
+      isShowAll: false,
       selectedRide,
       rides: newRides,
       deleteFn,
@@ -148,6 +150,7 @@ class App extends React.Component {
       });
   }
 
+  toggleShowAll = () => this.setState({ isShowAll: !this.state.isShowAll });
   toggleDrawer = (isDrawerOpen) => this.setState({ isDrawerOpen });
   toggleSaveDialog = (isSaveDialogOpen) => this.setState({ isSaveDialogOpen });
   toggleDeleteConfirm = (isDeleteConfirmOpen) => this.setState({ isDeleteConfirmOpen });
@@ -159,6 +162,7 @@ class App extends React.Component {
       selectedRide,
       path,
       viewport,
+      isShowAll,
       isDrawerOpen,
       isSaveDialogOpen,
       isDeleteConfirmOpen,
@@ -175,6 +179,11 @@ class App extends React.Component {
     // }
 
     const { riders } = this.props.match.params;
+    const getColor = (path, ride, selectedRide) =>
+      isShowAll
+        ? COLORS.blue : path.length && ride.id !== selectedRide.id
+        ? COLORS.gray
+        : ride.color;
     const rides = allRides
       .filter((ride) => riders
         .split(',')
@@ -188,7 +197,7 @@ class App extends React.Component {
       )
       .map(ride => ({
         ...ride,
-        color: path.length && ride.id !== selectedRide.id ? COLORS.gray : ride.color,
+        color: getColor(path, ride, selectedRide),
       }))
       .sort((a,b) => +(a.id === selectedRide.id) - +(b.id === selectedRide.id));
     const layers = [...rides.map(makeRideLayer)];
@@ -211,6 +220,7 @@ class App extends React.Component {
           <RideList
             rides={rides}
             selectRide={this.selectRide}
+            toggleShowAll={this.toggleShowAll}
             toggleSaveDialog={this.toggleSaveDialog}
             toggleDeleteConfirm={this.toggleDeleteConfirm}
           />

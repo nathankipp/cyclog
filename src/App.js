@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { VIEWPORT_USA, NEW_ID, COLORS } from './config';
 import {

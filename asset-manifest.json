@@ -1,28 +1,27 @@
 {
   "files": {
-    "main.css": "/cyclog/static/css/main.34de6062.chunk.css",
-    "main.js": "/cyclog/static/js/main.f26e55d2.chunk.js",
-    "main.js.map": "/cyclog/static/js/main.f26e55d2.chunk.js.map",
-    "runtime-main.js": "/cyclog/static/js/runtime-main.757fc4ca.js",
-    "runtime-main.js.map": "/cyclog/static/js/runtime-main.757fc4ca.js.map",
-    "static/css/2.b4a16772.chunk.css": "/cyclog/static/css/2.b4a16772.chunk.css",
-    "static/js/2.a33fe492.chunk.js": "/cyclog/static/js/2.a33fe492.chunk.js",
-    "static/js/2.a33fe492.chunk.js.map": "/cyclog/static/js/2.a33fe492.chunk.js.map",
+    "main.css": "/cyclog/static/css/main.4a4137e4.chunk.css",
+    "main.js": "/cyclog/static/js/main.7f415aba.chunk.js",
+    "main.js.map": "/cyclog/static/js/main.7f415aba.chunk.js.map",
+    "runtime-main.js": "/cyclog/static/js/runtime-main.674002ba.js",
+    "runtime-main.js.map": "/cyclog/static/js/runtime-main.674002ba.js.map",
+    "static/css/2.b4807e1b.chunk.css": "/cyclog/static/css/2.b4807e1b.chunk.css",
+    "static/js/2.88d7a9a4.chunk.js": "/cyclog/static/js/2.88d7a9a4.chunk.js",
+    "static/js/2.88d7a9a4.chunk.js.map": "/cyclog/static/js/2.88d7a9a4.chunk.js.map",
     "index.html": "/cyclog/index.html",
-    "precache-manifest.3043929f546602c4b2984a899d928aeb.js": "/cyclog/precache-manifest.3043929f546602c4b2984a899d928aeb.js",
-    "service-worker.js": "/cyclog/service-worker.js",
-    "static/css/2.b4a16772.chunk.css.map": "/cyclog/static/css/2.b4a16772.chunk.css.map",
-    "static/css/main.34de6062.chunk.css.map": "/cyclog/static/css/main.34de6062.chunk.css.map",
-    "static/media/directions_bike_24px.svg": "/cyclog/static/media/directions_bike_24px.64beea8c.svg",
-    "static/media/jesse.jpeg": "/cyclog/static/media/jesse.a82637d5.jpeg",
-    "static/media/nathan.png": "/cyclog/static/media/nathan.ee2493ef.png",
-    "static/media/sarah.jpeg": "/cyclog/static/media/sarah.24ca4f60.jpeg"
+    "static/css/2.b4807e1b.chunk.css.map": "/cyclog/static/css/2.b4807e1b.chunk.css.map",
+    "static/css/main.4a4137e4.chunk.css.map": "/cyclog/static/css/main.4a4137e4.chunk.css.map",
+    "static/js/2.88d7a9a4.chunk.js.LICENSE.txt": "/cyclog/static/js/2.88d7a9a4.chunk.js.LICENSE.txt",
+    "static/media/directions_bike_24px.53835df2.svg": "/cyclog/static/media/directions_bike_24px.53835df2.svg",
+    "static/media/jesse.4fe395c2.jpeg": "/cyclog/static/media/jesse.4fe395c2.jpeg",
+    "static/media/nathan.d346fc2e.png": "/cyclog/static/media/nathan.d346fc2e.png",
+    "static/media/sarah.e5262dc2.jpeg": "/cyclog/static/media/sarah.e5262dc2.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.757fc4ca.js",
-    "static/css/2.b4a16772.chunk.css",
-    "static/js/2.a33fe492.chunk.js",
-    "static/css/main.34de6062.chunk.css",
-    "static/js/main.f26e55d2.chunk.js"
+    "static/js/runtime-main.674002ba.js",
+    "static/css/2.b4807e1b.chunk.css",
+    "static/js/2.88d7a9a4.chunk.js",
+    "static/css/main.4a4137e4.chunk.css",
+    "static/js/main.7f415aba.chunk.js"
   ]
 }

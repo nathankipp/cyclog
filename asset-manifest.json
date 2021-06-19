@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/cyclog/static/css/main.4a4137e4.chunk.css",
-    "main.js": "/cyclog/static/js/main.7f415aba.chunk.js",
-    "main.js.map": "/cyclog/static/js/main.7f415aba.chunk.js.map",
+    "main.js": "/cyclog/static/js/main.139f0d35.chunk.js",
+    "main.js.map": "/cyclog/static/js/main.139f0d35.chunk.js.map",
     "runtime-main.js": "/cyclog/static/js/runtime-main.674002ba.js",
     "runtime-main.js.map": "/cyclog/static/js/runtime-main.674002ba.js.map",
     "static/css/2.b4807e1b.chunk.css": "/cyclog/static/css/2.b4807e1b.chunk.css",
-    "static/js/2.88d7a9a4.chunk.js": "/cyclog/static/js/2.88d7a9a4.chunk.js",
-    "static/js/2.88d7a9a4.chunk.js.map": "/cyclog/static/js/2.88d7a9a4.chunk.js.map",
+    "static/js/2.1a4bed66.chunk.js": "/cyclog/static/js/2.1a4bed66.chunk.js",
+    "static/js/2.1a4bed66.chunk.js.map": "/cyclog/static/js/2.1a4bed66.chunk.js.map",
     "index.html": "/cyclog/index.html",
     "static/css/2.b4807e1b.chunk.css.map": "/cyclog/static/css/2.b4807e1b.chunk.css.map",
     "static/css/main.4a4137e4.chunk.css.map": "/cyclog/static/css/main.4a4137e4.chunk.css.map",
-    "static/js/2.88d7a9a4.chunk.js.LICENSE.txt": "/cyclog/static/js/2.88d7a9a4.chunk.js.LICENSE.txt",
+    "static/js/2.1a4bed66.chunk.js.LICENSE.txt": "/cyclog/static/js/2.1a4bed66.chunk.js.LICENSE.txt",
     "static/media/directions_bike_24px.53835df2.svg": "/cyclog/static/media/directions_bike_24px.53835df2.svg",
     "static/media/jesse.4fe395c2.jpeg": "/cyclog/static/media/jesse.4fe395c2.jpeg",
     "static/media/nathan.d346fc2e.png": "/cyclog/static/media/nathan.d346fc2e.png",
@@ -20,8 +20,8 @@
   "entrypoints": [
     "static/js/runtime-main.674002ba.js",
     "static/css/2.b4807e1b.chunk.css",
-    "static/js/2.88d7a9a4.chunk.js",
+    "static/js/2.1a4bed66.chunk.js",
     "static/css/main.4a4137e4.chunk.css",
-    "static/js/main.7f415aba.chunk.js"
+    "static/js/main.139f0d35.chunk.js"
   ]
 }

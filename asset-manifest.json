@@ -5,11 +5,11 @@
     "main.js.map": "/cyclog/static/js/main.139f0d35.chunk.js.map",
     "runtime-main.js": "/cyclog/static/js/runtime-main.674002ba.js",
     "runtime-main.js.map": "/cyclog/static/js/runtime-main.674002ba.js.map",
-    "static/css/2.b4807e1b.chunk.css": "/cyclog/static/css/2.b4807e1b.chunk.css",
+    "static/css/2.353da563.chunk.css": "/cyclog/static/css/2.353da563.chunk.css",
     "static/js/2.1a4bed66.chunk.js": "/cyclog/static/js/2.1a4bed66.chunk.js",
     "static/js/2.1a4bed66.chunk.js.map": "/cyclog/static/js/2.1a4bed66.chunk.js.map",
     "index.html": "/cyclog/index.html",
-    "static/css/2.b4807e1b.chunk.css.map": "/cyclog/static/css/2.b4807e1b.chunk.css.map",
+    "static/css/2.353da563.chunk.css.map": "/cyclog/static/css/2.353da563.chunk.css.map",
     "static/css/main.4a4137e4.chunk.css.map": "/cyclog/static/css/main.4a4137e4.chunk.css.map",
     "static/js/2.1a4bed66.chunk.js.LICENSE.txt": "/cyclog/static/js/2.1a4bed66.chunk.js.LICENSE.txt",
     "static/media/directions_bike_24px.53835df2.svg": "/cyclog/static/media/directions_bike_24px.53835df2.svg",
@@ -19,7 +19,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.674002ba.js",
-    "static/css/2.b4807e1b.chunk.css",
+    "static/css/2.353da563.chunk.css",
     "static/js/2.1a4bed66.chunk.js",
     "static/css/main.4a4137e4.chunk.css",
     "static/js/main.139f0d35.chunk.js"

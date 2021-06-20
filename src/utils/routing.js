@@ -1,6 +1,5 @@
 const hash = () => window.location.hash;
-
-export default {
+const routing = {
   getRidersFromUrl: (match) => {
     const { riders } = match.params;
     // const riders = hash().match(/#\/([\w,]*)\//);
@@ -21,3 +20,5 @@ export default {
   updateRideHash: (ride) =>
     window.location.hash = hash().replace(/\/[\w\d-]*$/, `/${ride.id}`)
 }
+
+export default routing;

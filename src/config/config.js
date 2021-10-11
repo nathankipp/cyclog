@@ -6,10 +6,12 @@ export const DRAWER_WIDTH = 300;
 
 export const NEW_ID = 'NEW_ID';
 
+export const IS_LANDSCAPE = () => window.innerHeight < window.innerWidth;
+export const IS_NARROW = window.innerWidth < 500;
 export const VIEWPORT_USA = {
   latitude: 39.0,
   longitude: -97.0,
-  zoom: 3.25,
+  zoom: IS_NARROW ? 2.25 : 3.25,
   // transitionDuration: 0,
   // transitionInterpolator: new FlyToInterpolator(),
   // transitionEasing: d3.easeCubic,

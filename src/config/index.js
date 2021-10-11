@@ -1,15 +1,1 @@
-import {
-  MAPBOX_ACCESS_TOKEN,
-  DRAWER_WIDTH,
-  NEW_ID,
-  VIEWPORT_USA,
-  COLORS,
-} from './config';
-
-export {
-  MAPBOX_ACCESS_TOKEN,
-  DRAWER_WIDTH,
-  NEW_ID,
-  VIEWPORT_USA,
-  COLORS,
-};
+export * from './config';

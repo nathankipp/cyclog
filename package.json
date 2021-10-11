@@ -9,7 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@turf/turf": "^6.4.0",
     "aws-sdk": "^2.931.0",
-    "deck.gl": "^8.4.17",
+    "deck.gl": "^8.5.10",
     "node-sass": "^4.13.0",
     "react": "^17.0.2",
     "react-dom": "^16.12.0",

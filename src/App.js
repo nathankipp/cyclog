@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {v4 as uuid} from 'uuid';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { VIEWPORT_USA, NEW_ID, COLORS } from './config';
+import { IS_NARROW, VIEWPORT_USA, NEW_ID, COLORS } from './config';
 import {
   configureRides,
   deleteRide,
@@ -35,7 +35,7 @@ class App extends React.Component {
     path: [],
     viewport: VIEWPORT_USA,
     isShowAll: false,
-    isDrawerOpen: true,
+    isDrawerOpen: !IS_NARROW,
     isSaveDialogOpen: false,
     isDeleteConfirmOpen: false,
     deleteFn: null
@@ -84,9 +84,14 @@ class App extends React.Component {
       this.setState({ viewport: moveMapTo(VIEWPORT_USA) });
       return;
     }
-    const { rides } = this.state;
+    const { rides, isDrawerOpen } = this.state;
     const newRides = configureRides(rides, selectedRide);
-    const viewport = moveMapTo(selectedRide.viewport);
+    const { zoom } = selectedRide.viewport;
+    const adjustedViewport = {
+      ...selectedRide.viewport,
+      zoom: IS_NARROW ? zoom - 1 : zoom
+    };
+    const viewport = moveMapTo(adjustedViewport);
     const deleteFn = this.deleteRideFn(selectedRide);
     this.setState({
       isShowAll: false,
@@ -94,6 +99,7 @@ class App extends React.Component {
       rides: newRides,
       deleteFn,
       viewport,
+      isDrawerOpen: IS_NARROW ? false : isDrawerOpen,
     });
   }
 
